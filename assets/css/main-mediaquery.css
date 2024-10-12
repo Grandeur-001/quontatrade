@@ -1,4 +1,8 @@
 @media only screen and (max-width: 888px) {
+    html{
+        scrollbar-width: none;
+    }
+    
     .google-translator{
         display: none;
     }
@@ -11,7 +15,8 @@
         padding-inline-end: 20px;
     }
     .desktop_navbar .wrapper > nav .hamburger{
-        display: flex;
+        /* display: flex; */
+        display: block;
     }
 
     
@@ -73,7 +78,7 @@
     }
     
     .section_1 > .wrapper{
-        flex-direction: column;
+        flex-direction: column-reverse;
         padding: 20px;
     }
 
@@ -115,6 +120,8 @@
     .section_3 .wrapper .card_wrapper{
         grid-template-columns: repeat(2, 1fr);
     }
+
+    
     .section_3 .wrapper header .small_text{
         flex-direction: column;
         
@@ -122,6 +129,18 @@
     
     .section_3 .wrapper header .small_text a{
         padding-inline: 0px;
+    }
+    
+    .section_4 > .wrapper > .card_wrapper{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .section_4 > .wrapper > header .head_text{
+        font-size: 28px;
+        padding-inline: 30px;
+        text-align: center;
+    }
+    .section_5 > .wrapper{
+        grid-template-columns: repeat(2, 1fr);
     }
     
     
@@ -157,7 +176,19 @@
     .section_3 .wrapper .card_wrapper{
         grid-template-columns: repeat(1, 1fr);
     }
-
+    .section_4 > .wrapper > .card_wrapper{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .section_5{
+        padding: 10px;
+    }
+    
+    .section_5 > .wrapper{
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .section_5 > .wrapper > .card .number_line > .line{
+        width: 280px;
+    }
     
 }
 

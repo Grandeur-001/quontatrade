@@ -3,128 +3,133 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text Scramble</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-    <style>
-        body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  <title>Document</title>
+  <style>
+    html, body{
+  width: 100%;
+  height: 100%;
   margin: 0;
-  background-color: #ffffff;
-  font-family: 'Arial', sans-serif;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
-.scramble-container {
+
+
+/* GRID */
+
+
+.three { width: 23.8%; }
+
+
+/* COLUMNS */
+
+
+/* ALL */
+
+.row .three{
+  padding: 80px 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #2c3e50;
+  color: #ecf0f1;
   text-align: center;
 }
 
-.scramble-text {
-  font-size: 2rem;
-  color: white;
+.hamburger .line{
+  width: 40px;
+  height: 4px;
+  background-color: #000000;
+  display: block;
+  margin: 8px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger:hover{
   cursor: pointer;
-  transition: color 0.3s;
 }
 
-.scramble-text:hover {
-  color: #ff4757;
+/* SIX */
+
+#hamburger-6.is-active{
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition-delay: 0.6s;
+  -o-transition-delay: 0.6s;
+  transition-delay: 0.6s;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
-    </style>
+#hamburger-6.is-active .line:nth-child(2){
+  width: 0px;
+}
+
+#hamburger-6.is-active .line:nth-child(1),
+#hamburger-6.is-active .line:nth-child(3){
+  -webkit-transition-delay: 0.3s;
+  -o-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+
+#hamburger-6.is-active .line:nth-child(1){
+  -webkit-transform: translateY(13px);
+  -ms-transform: translateY(13px);
+  -o-transform: translateY(13px);
+  transform: translateY(13px);
+}
+
+#hamburger-6.is-active .line:nth-child(3){
+  -webkit-transform: translateY(-13px) rotate(90deg);
+  -ms-transform: translateY(-13px) rotate(90deg);
+  -o-transform: translateY(-13px) rotate(90deg);
+  transform: translateY(-13px) rotate(90deg);
+}
+
+
+@keyframes smallbig{
+  0%, 100%{
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50%{
+    -webkit-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+  }
+}
+
+  </style>
+</head>
 <body>
-    <div class="container">
-        <div class="text"></div>
-      </div>
+  <div class="three col">
+    <div class="hamburger" id="hamburger-6">
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </div>
+  </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          document.querySelector('.hamburger').addEventListener('click', function() {
+            this.classList.toggle('is-active');
+          });
+        });
+      </script>
 
-      
-
-<script>
-    // ——————————————————————————————————————————————————
-// TextScramble
-// ——————————————————————————————————————————————————
-
-class TextScramble {
-  constructor(el) {
-    this.el = el;
-    this.chars = "!<>-_\\/[]{}—=+*^?#________";
-    this.update = this.update.bind(this);
-  }
-  setText(newText) {
-    const oldText = this.el.innerText;
-    const length = Math.max(oldText.length, newText.length);
-    const promise = new Promise(resolve => this.resolve = resolve);
-    this.queue = [];
-    for (let i = 0; i < length; i++) {
-      const from = oldText[i] || '';
-      const to = newText[i] || '';
-      const start = Math.floor(Math.random() * 40);
-      const end = start + Math.floor(Math.random() * 40);
-      this.queue.push({ from, to, start, end });
-    }
-    cancelAnimationFrame(this.frameRequest);
-    this.frame = 0;
-    this.update();
-    return promise;
-  }
-  update() {
-    let output = "";
-    let complete = 0;
-    for (let i = 0, n = this.queue.length; i < n; i++) {
-      let { from, to, start, end, char } = this.queue[i];
-      if (this.frame >= end) {
-        complete++;
-        output += to;
-      } else if (this.frame >= start) {
-        if (!char || Math.random() < 0.28) {
-          char = this.randomChar();
-          this.queue[i].char = char;
-        }
-        output += `<span class="dud">${char}</span>`;
-      } else {
-        output += from;
-      }
-    }
-    this.el.innerHTML = output;
-    if (complete === this.queue.length) {
-      this.resolve();
-    } else {
-      this.frameRequest = requestAnimationFrame(this.update);
-      this.frame++;
-    }
-  }
-  randomChar() {
-    return this.chars[Math.floor(Math.random() * this.chars.length)];
-  }}
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
 
-// ——————————————————————————————————————————————————
-// Example
-// ——————————————————————————————————————————————————
-
-const phrases = [
-"Neo,",
-"sooner or later",
-"you're going to realize",
-"Just as I did",
-"that there's a difference",
-"between knowing the path",
-"and walking the path"];
-
-
-const el = document.querySelector(".text");
-const fx = new TextScramble(el);
-
-let counter = 0;
-const next = () => {
-  fx.setText(phrases[counter]).then(() => {
-    setTimeout(next, 800);
-  });
-  counter = (counter + 1) % phrases.length;
-};
-
-next();
-</script>
 </body>
 </html>
