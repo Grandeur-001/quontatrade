@@ -1,4 +1,5 @@
 
+/* ============THE COLOR VARIABLES FOR THE WEBSITE============= */
 :root {
     --color-one-purple: #AC01FF;
     --color-two-blue2: #1dcffc56;
@@ -10,10 +11,11 @@
     --color-five-white: #ffffff;
     --border-radius:26px 26px 26px 26px;
     --box-shadow: 7px 7px 15px 0px #0E1015;
-  }
+}
+
+/* ============THE FONTS FOR THE WEBSITE============= */
 @font-face {
     font-family: PRO-FONT1;
-    
     src: url(/assets/fonts/Fontspring-DEMO-proximanova-regular.otf);
 }
 @font-face {
@@ -29,6 +31,8 @@
     src: url(/assets/fonts/Manrope-ExtraLight.ttf);
 }
 
+
+/* ============THE UNVERSAL OR GLOBAL SELECTOR============= */
 *{
     padding: 0;
     margin: 0;
@@ -45,37 +49,42 @@
         transform: translateY(0);
     }
 }
+
 @keyframes flash {
     0%{
       opacity: 0;
   
       }
-    /* 70%{
-      opacity: 0;
-    } */
+
     100%{
       opacity: 1;
     }
 }
 
-
+/* ============STYLING AND ANIMATION FOR THE HTML TAG============= */
 html{
     scroll-behavior: smooth;
     animation: flash 2s linear;
 }
+
+
+/* ============STYLING FOR THE BODY TAG============= */
 body{
     min-height: 100vh;
     position: relative;
     background-image: radial-gradient(at top right, var(--color-three-darkblue) 25%, #222633 100%);
-    
-
 }
+
+
+/* ============STYLING FOR GOOGLE LANGUAGE TRANSLATOR=============//AT THE TOP// */
 .google-translator{
     height: 90px;
     width: 100%;
     position: sticky;
     top: 0;
     font-family: PRO-FONT3;
+    background: var(--color-three-darkblue);
+
 
 
 }
@@ -83,11 +92,11 @@ body{
 /* ============STYLING FOR DESKTOP NAVBAR============= */
 .desktop_navbar{
     width: 100%;
-    /* overflow: hidden; */
     position: sticky;
     top: 0;
     z-index: 10000;
     background: var(--color-three-darkblue);
+
 
 
 }
@@ -102,7 +111,7 @@ body{
 
 
 } 
-/* ============HAMBURGER MENU ICON AND ANIMATION============= */
+/* ============STYLING FOR HAMBURGER MENU ICON AND ANIMATION============= //ONLY VISIBLE IN TABLET AND MOBILE SIZES// */
 .desktop_navbar .wrapper > nav .hamburger{
     display: none;
     scale: 0.6;
@@ -167,7 +176,8 @@ body{
 
 
   
-  
+
+/* ============STYLING FOR DESKTOP NAVBAR **CONTINUES HERE** ============= */
 .desktop_navbar .wrapper > nav .logo{
     height: 100%;
     display: flex;
@@ -303,9 +313,12 @@ body{
     background-clip: text;
 
 }
-
 /* ============STYLING FOR DESKTOP NAVBAR END HERE============= */
-/* ============STYLING FOR MOBILE NAVBAR============= */
+
+
+
+
+/* ============STYLING FOR MOBILE NAVBAR============= //TRANSLATED OUT OF VIEW// */
 .mobile_navbar{
     position: fixed;
     top: 170px;
@@ -326,7 +339,6 @@ body{
     gap: 30px;
     padding-block-start: 30px;
     flex-direction: column;
-    /* background: var(--color-four-gray2); */
     padding-inline-start: 20px;
 
 }
@@ -335,37 +347,38 @@ body{
     border-radius: 50%;
     
 }
+/* ============STYLING FOR MOBILE NAVBAR END HERE============= //TRANSLATED OUT OF VIEW// */
 
 
 
 
-/* // */
-.tradingview-widget-container{
-    width: 100%;
-    height: 46px;
-    position: fixed; 
-    bottom: 0;
-    z-index: 300;
-}
 
 
-/* ============STYLING FOR HOME BANNER============= */
+
+
+/* ============STYLING FOR HOME PAGE BANNER============= */
 .home_banner{
-    /* height: 70vh; */
-
-    background-image: url(/assets/images/BG.png);
+    background-image: url(/assets/images/BG___.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    /* width: 100%; */
     margin-block-end: 50px;
+    animation:  bannerTranform 15s infinite forwards;
+
+}
+@keyframes bannerTranform {
+    25% {
+        background-position: 20%  20%;
+        background-position-y: bottom;
+
+
+    }
 }
 
 
 
 .home_banner .text_content{
     width: 100%;
-    /* height: 100%; */
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -403,11 +416,7 @@ body{
 .home_banner .evoloution {
     /* height: 100vh; */
     width: 100%;
-    /* border: 2px solid red; */
-    /* background-image: url(/assets/images/Bitcoin\ HD\ Wallpaper\ Teahub\ Io.png); */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+
 
 }
 .home_banner .evoloution > .wrapper{
@@ -483,7 +492,6 @@ body{
 .home_banner .evoloution > .wrapper .right_axiz{
     width: 50%;
     /* border: 2px solid red; */
-    float: left;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -509,6 +517,9 @@ body{
     text-align: center;
 
 }
+/* ============STYLING FOR HOME PAGE BANNER END HERE============= */
+
+
 
 
 /* ============STYLING FOR SECTIONS OF THE HOME PAGE============= */
@@ -567,6 +578,9 @@ body{
     line-height: 34px;
     margin-block-start: 10px;
     color: var(--color-four-gray);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .section_1 > .wrapper .text .btn a{
     padding-inline: 45px;
@@ -639,8 +653,6 @@ body{
 }
 
 .section_2 > .wrapper > .card{
-    /* height: 200px; */
-    /* width: 33.3%; */
     background: var(--color-three-darkblue);
     border-radius: var(--border-radius);
     display: flex;
@@ -689,7 +701,7 @@ body{
 }
 
 .section_3{
-    /* height: 100vh; */
+    display: block;
 }
 
 .section_3 .wrapper{
@@ -826,9 +838,8 @@ body{
 
 
 .section_3-continue{
-    height: 100vh;
+    margin-top: 80px;
     display: flex;
-    /* display: none; */
     padding-inline-start: 50px;
     justify-content: center;
     align-items: center;
@@ -866,8 +877,8 @@ body{
 
   @media screen and (max-width: 992px) {
     .blog-slider {
-      max-width: 780px;
-      height: 400px;
+      /* max-width: 780px; */
+      height: unset;
    }
  }
   @media screen and (max-width: 768px) {
@@ -878,7 +889,6 @@ body{
     
     .blog-slider {
       /* min-height: 500px; */
-      height: auto;
       /* margin: 180px auto; */
    }
 
@@ -886,7 +896,7 @@ body{
  }
   @media screen and (max-height: 500px) and (min-width: 992px) {
     .blog-slider {
-      height: 350px;
+      /* height: 350px; */
    }
  }
   .blog-slider__item {
@@ -958,7 +968,6 @@ body{
     width: 300px;
     flex-shrink: 0;
     height: 300px;
-    /* background: radial-gradient(at top left, var(--color-two-blue) 30%, var(--color-one-purple) 100%); */
     border-radius: 20px;
     transform: translateX(-80px);
     overflow: hidden;
@@ -1050,20 +1059,17 @@ body{
   .blog-slider__button {
     display: inline-flex;
     background: radial-gradient(at top left, var(--color-two-blue) 30%, var(--color-one-purple) 100%);
-
-    /* background-image: linear-gradient(147deg, #fe8a39 0%, #fd3838 74%); */
     padding: 15px 35px;
     border-radius: 50px;
     color: #fff;
     box-shadow: 4px 13px 30px #1dcffc15, -40px 0 100px #aa01ff22;
-
-    /* box-shadow: 0px 14px 80px rgba(252, 56, 56, 0.4); */
     text-decoration: none;
     font-weight: 500;
     justify-content: center;
     text-align: center;
     letter-spacing: 1px;
  }
+
   @media screen and (max-width: 576px) {
     .blog-slider__button {
       width: 100%;
@@ -1126,7 +1132,6 @@ body{
  }
   .blog-slider__pagination .swiper-pagination-bullet-active {
     opacity: 1;
-    /* background: #fd3838; */
     background: radial-gradient(at top left, var(--color-two-blue) 30%, var(--color-one-purple) 100%);
 
     height: 30px;
@@ -1141,7 +1146,6 @@ body{
   
 
 .section_4{
-    /* margin-block-start: 150px; */
     margin-block-start: 150px;
     width: 100%;
 }
@@ -1150,8 +1154,6 @@ body{
     display: flex;
     flex-direction: column;
     gap: 20px;
-
-    /* width: 100%; */
 }
 
 .section_4 > .wrapper > header{
@@ -1218,8 +1220,7 @@ body{
     justify-content: space-around;
     padding-block-start: 60px;
     width: 80%;
-    /* border: 2px solid red; */
-    /* padding-inline-start: 30px; */
+
 
     
 }
@@ -1431,7 +1432,15 @@ body{
 
 
 
-/* <!-- ============ STYLING FOR PRELOADER ANIMATION============= --> */
+
+
+
+
+
+
+
+
+/* <!-- ============ STYLING FOR PRELOADER ANIMATION============= --> //VISIBLE ONCE A LINK IS CLICKED//*/
  .preloader_animation{
     position: fixed;
     visibility: hidden;
@@ -1501,3 +1510,18 @@ body{
     visibility: visible;
     opacity: 1;
 }
+
+
+
+
+
+/* <!-- ============ STYLING FOR TRADING VIEW WIDGET ============= --> **POSITION FIXED TO THE BOTTOM** */
+.tradingview-widget-container{
+    width: 100%;
+    height: 46px;
+    position: fixed; 
+    bottom: 0;
+    z-index: 300;
+}
+
+

@@ -2,13 +2,14 @@ const body = document.querySelector(`body`);
 const hamBurger = document.querySelector(`.hamburger`);
 const mobileNavbar = document.querySelector(`.mobile_navbar`);
 const checkNav = document.querySelector(`#check_nav`);
-let allLinks = document.querySelector('.links');
+const allLinks = document.querySelector('.links');
+
+
 
 
 checkNav.addEventListener(`click`, () => {
 	if(checkNav.checked){
 		hamBurger.classList.add('is-active');
-
 		mobileNavbar.style.setProperty(
 			'transform',
 			'translateX(+0)'
@@ -75,7 +76,6 @@ document.querySelectorAll(`.links`).forEach((link_s) => {
 // ELEMENTS SLIDE-IN ANIMATION //
 const items = document.querySelectorAll(`#move_in`);
 window.addEventListener(`scroll`, startAnimation);
-
 
     function startAnimation() {
 		const trigger = (window.innerHeight / 4.6 * 4);
@@ -149,4 +149,14 @@ window.addEventListener('resize', function() {
 
 
 
+// document.addEventListener('contextmenu', event => event.preventDefault());
 
+// document.onkeydown = function(e) {
+//     // Disable F12, Ctrl+Shift+I (Inspector), Ctrl+Shift+J (Console), Ctrl+U (View Source)
+//     if (e.keyCode == 123 || // F12
+//         (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || // Ctrl+Shift+I
+//         (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || // Ctrl+Shift+J
+//         (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) { // Ctrl+U
+//         return false; // Prevent the event
+//     }
+// };
