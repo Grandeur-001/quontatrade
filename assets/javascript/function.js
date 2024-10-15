@@ -140,7 +140,7 @@ window.addEventListener('resize', function() {
 
   // Check if the screen size crossed the 888px threshold
   if ((prevWindowWidth > 888 && currentWindowWidth <= 888) || (prevWindowWidth <= 888 && currentWindowWidth > 888)) {
-    location.reload();  // Reload the page when resizing crosses 888px
+    // location.reload();  // Reload the page when resizing crosses 888px
   }
 
   // Update the previous window width for the next resize event

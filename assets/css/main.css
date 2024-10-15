@@ -211,6 +211,23 @@ body{
 .desktop_navbar .wrapper > nav > ul > li{
     list-style: none;
 }
+.desktop_navbar .wrapper > nav > ul > li a{
+    color: var(--color-five-white);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: PRO-FONT3;
+    letter-spacing: 0.8px;
+    font-weight: 900;
+    font-size: 13.3px;
+    transition: all 0.5s ease;
+}
+.desktop_navbar .wrapper > nav > ul > li a:hover{
+    background: radial-gradient(at top left, var(--color-two-blue) 30%, var(--color-one-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+}
 .desktop_navbar .wrapper > nav > ul > li:nth-of-type(3) .sub_menu{
     position: absolute;
     justify-content: center;
@@ -296,23 +313,7 @@ body{
 }
 
 
-.desktop_navbar .wrapper > nav > ul > li a{
-    color: var(--color-five-white);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: PRO-FONT3;
-    letter-spacing: 0.8px;
-    font-weight: 900;
-    font-size: 13.3px;
-    transition: all 0.5s ease;
-}
-.desktop_navbar .wrapper > nav > ul > li a:hover{
-    background: radial-gradient(at top left, var(--color-two-blue) 30%, var(--color-one-purple) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 
-}
 /* ============STYLING FOR DESKTOP NAVBAR END HERE============= */
 
 
@@ -1428,14 +1429,144 @@ body{
     color: var(--color-five-white);
 }
 
+.section_6{
+    display: flex;
+    flex-direction: column;
+}
+
+.section_6 > header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column-reverse;
+}
 
 
+.section_6 > header .head_text{
+    font-size: 32px;
+    color: var(--color-five-white);
+    font-family: PRO-FONT3;
+    text-transform: uppercase;
+    margin-block-end: 10px;
+}
 
+.section_6 > header .dash{
+    width: 60px;
+    height: 3px;
+    background: radial-gradient(at top left, var(--color-two-blue) 30%, var(--color-one-purple) 100%);
 
+}
 
+.main_footer{
+    /* height: 100vh; */
+    background: var(--color-three-darkblue);
+    width: 100%;
+    padding: 60px;
+}
 
+.main_footer .wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 40px;
+}
 
+.main_footer .wrapper header{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.main_footer .wrapper .logo{
+    height: 60px;
+    width: 60px;
+}
+.main_footer .wrapper .logo .image_wrapper{
+    height: 100%;
+    width: 100%;
+}
+.main_footer .wrapper .logo .image_wrapper img{
+    max-width: 100%;
+}
+.main_footer .wrapper .text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--color-five-white);
+}
 
+.main_footer .wrapper .footer_links{
+    height: unset;
+}
+.main_footer .wrapper .footer_links > .wrapper{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 100%;
+    gap: 30px;
+}
+.footer_links > .wrapper  .card{
+    /* height: 300px; */
+    /* width: 300px; */
+    /* background: white; */
+}
+.footer_links > .wrapper  .card .wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer_links > .wrapper  .card .wrapper h4{
+    font-size: 22px;
+    color: var(--color-five-white);
+    font-family: PRO-FONT3;
+    text-transform: uppercase;
+    margin-block-end: 10px;
+}
+.footer_links > .wrapper  .card .wrapper ul{
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+.footer_links > .wrapper  .card .wrapper ul li{
+    list-style: none;
+
+}
+.footer_links > .wrapper  .card .wrapper ul li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 220px;
+    text-decoration: none;
+
+}
+.footer_links > .wrapper  .card .wrapper ul li a .dash{
+    width: 20px;
+    transition: all 0.4s ease;
+    height: 2.5px;
+    border-radius: 10px;
+    background: radial-gradient(at top left, var(--color-two-blue) 30%, var(--color-one-purple) 100%);
+
+}
+.footer_links > .wrapper  .card .wrapper ul li a:hover .dash{
+    margin-inline-start: 10px;
+}
+.footer_links > .wrapper  .card .wrapper ul li a{
+    color: var(--color-four-gray);
+    text-transform: uppercase;
+    font-family: PRO-FONT3;
+    letter-spacing: 0.8px;
+    font-size: 15px;
+    transition: all 0.5s ease;
+
+}
+.footer_links > .wrapper  .card .wrapper ul li a:hover{
+    color: var(--color-five-white);
+}
+
+.footer_links > .wrapper  .card:nth-of-type(3){
+    /* border: 2px solid red; */
+    width: 100%;
+}
 
 
 
