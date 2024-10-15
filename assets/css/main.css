@@ -1516,7 +1516,7 @@ body{
 }
 
 .footer_links > .wrapper  .card .wrapper h4{
-    font-size: 22px;
+    font-size: 18px;
     color: var(--color-five-white);
     font-family: PRO-FONT3;
     text-transform: uppercase;
@@ -1536,11 +1536,17 @@ body{
     align-items: center;
     gap: 10px;
     width: 220px;
+    font-weight: bold;
     text-decoration: none;
+    color: var(--color-four-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-size: 13px;
+    transition: all 0.5s ease;
 
 }
 .footer_links > .wrapper  .card .wrapper ul li a .dash{
-    width: 20px;
+    width: 14px;
     transition: all 0.4s ease;
     height: 2.5px;
     border-radius: 10px;
@@ -1550,16 +1556,12 @@ body{
 .footer_links > .wrapper  .card .wrapper ul li a:hover .dash{
     margin-inline-start: 10px;
 }
-.footer_links > .wrapper  .card .wrapper ul li a{
-    color: var(--color-four-gray);
-    text-transform: uppercase;
+.footer_links > .wrapper  .card .wrapper ul li a samp{
     font-family: PRO-FONT3;
-    letter-spacing: 0.8px;
-    font-size: 15px;
-    transition: all 0.5s ease;
 
 }
-.footer_links > .wrapper  .card .wrapper ul li a:hover{
+
+.footer_links > .wrapper  .card .wrapper ul li a samp:hover{
     color: var(--color-five-white);
 }
 

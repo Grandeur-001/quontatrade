@@ -1,3 +1,4 @@
+const html = document.querySelector(`html`)
 const body = document.querySelector(`body`);
 const hamBurger = document.querySelector(`.hamburger`);
 const mobileNavbar = document.querySelector(`.mobile_navbar`);
@@ -39,10 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	function jsMediaQueries() {
 
 		if (!window.matchMedia("(max-width: 888px)").matches){
+			hamBurger.classList.remove('is-active');
 			mobileNavbar.style.setProperty(
 				'transform',
 				'translateX(-50vh)'
 			);
+
 		}else {
 
 		}
@@ -51,10 +54,28 @@ document.addEventListener('DOMContentLoaded', () => {
 	window.addEventListener('resize', jsMediaQueries);
 });
 
-document.querySelectorAll(`.links`).forEach((link_s) => {
+// window.addEventListener(`load`, () => {
+	
+	// 	setTimeout(() => {
+		// 		document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`)}, 2000);
+		// });
+		
+function loadAnimation() {
+	document.querySelector(`.preloader_animation`).classList.add(`show_preloader`);
+		setTimeout(() => {
+			document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`)}, 3000);
+
+}
+window.addEventListener(`DOMContentLoaded`, loadAnimation);
+
+
+
+document.querySelectorAll(`.links`).forEach((link_s) => { 
 	link_s.addEventListener(`click`, (anchor) => {
+
 		anchor.preventDefault();
 
+		hamBurger.classList.remove('is-active');
 		mobileNavbar.style.setProperty(
 			'transform',
 			'translateX(-50vh)'
@@ -63,15 +84,28 @@ document.querySelectorAll(`.links`).forEach((link_s) => {
 			'transition',
 			'2s'
 		);
-		
+
+		window.addEventListener(`DOMContentLoaded`, loadAnimation);
 		const thisHref = link_s.getAttribute(`href`);
-		document.querySelector(`.preloader_animation`).classList.add(`show_preloader`);
+		// document.querySelector(`.preloader_animation`).classList.add(`show_preloader`);
 		
 		setTimeout(() => {
-			document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`);
-			window.location.href = thisHref;}, 3000);
+			window.removeEventListener(`DOMContentLoaded`, loadAnimation);
+			// document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`);
+			window.location.href = thisHref;
+
 		});
+
+	});
+
 });
+
+
+
+
+
+
+
 
 // ELEMENTS SLIDE-IN ANIMATION //
 const items = document.querySelectorAll(`#move_in`);
@@ -119,7 +153,7 @@ function initSwiper() {
 
   // Add a separate mousewheel event listener only to the pagination element
   const paginationEl = document.querySelector('.swiper-pagination-bullets');
-  paginationEl.addEventListener('wheel', function(e) {
+  paginationEl.addEventListener('', function(e) {
     e.preventDefault(); // Prevent default scrolling behavior
 
     // Determine the direction of scroll and navigate the slider accordingly
@@ -134,23 +168,11 @@ function initSwiper() {
 initSwiper();
 
 
-// Add an event listener to handle window resize
-window.addEventListener('resize', function() {
-  const currentWindowWidth = window.innerWidth;
-
-  // Check if the screen size crossed the 888px threshold
-  if ((prevWindowWidth > 888 && currentWindowWidth <= 888) || (prevWindowWidth <= 888 && currentWindowWidth > 888)) {
-    // location.reload();  // Reload the page when resizing crosses 888px
-  }
-
-  // Update the previous window width for the next resize event
-  prevWindowWidth = currentWindowWidth;
-});
 
 
 
-// document.addEventListener('contextmenu', event => event.preventDefault());
 
+document.addEventListener('contextmenu', (event) => event.preventDefault());
 // document.onkeydown = function(e) {
 //     // Disable F12, Ctrl+Shift+I (Inspector), Ctrl+Shift+J (Console), Ctrl+U (View Source)
 //     if (e.keyCode == 123 || // F12

@@ -15,7 +15,6 @@
         padding-inline-end: 20px;
     }
     .desktop_navbar .wrapper > nav .hamburger{
-        /* display: flex; */
         display: block;
     }
 
@@ -142,6 +141,7 @@
     .section_5 > .wrapper{
         grid-template-columns: repeat(2, 1fr);
     }
+
 
     .main_footer .wrapper .footer_links > .wrapper{
         grid-template-columns: repeat(2, 1fr);
