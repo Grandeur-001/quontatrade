@@ -4,6 +4,7 @@ const hamBurger = document.querySelector(`.hamburger`);
 const mobileNavbar = document.querySelector(`.mobile_navbar`);
 const checkNav = document.querySelector(`#check_nav`);
 const allLinks = document.querySelector('.links');
+const preloaderAnimation = document.querySelector(`.preloader_animation`)
 
 
 
@@ -47,26 +48,36 @@ document.addEventListener('DOMContentLoaded', () => {
 			);
 
 		}else {
-
+			// //////////
 		}
 	}
 	jsMediaQueries();
 	window.addEventListener('resize', jsMediaQueries);
 });
 
-// window.addEventListener(`load`, () => {
-	
-	// 	setTimeout(() => {
-		// 		document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`)}, 2000);
-		// });
-		
-function loadAnimation() {
-	document.querySelector(`.preloader_animation`).classList.add(`show_preloader`);
-		setTimeout(() => {
-			document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`)}, 7000);
+
+const firstEntry = localStorage.getItem(`hasVisited`) === null;
+if(firstEntry && performance.navigation.type === 0){
+	localStorage.setItem(`hasVisited`, `true`);
+
+	preloaderAnimation.classList.add(`show_preloader`);
+	setTimeout(() => {
+		preloaderAnimation.classList.remove(`show_preloader`);
+		window.location.href = thisHref;}, 6000);
 
 }
-window.addEventListener(`DOMContentLoaded`, loadAnimation);
+if(performance.navigation.type === 1) {
+	preloaderAnimation.classList.add(`show_preloader`);
+	setTimeout(() => {
+		preloaderAnimation.classList.remove(`show_preloader`);
+		window.location.href = thisHref;}, 6000);
+
+}
+else{
+	preloaderAnimation.classList.remove(`show_preloader`);
+}
+
+
 
 
 
@@ -85,16 +96,12 @@ document.querySelectorAll(`.links`).forEach((link_s) => {
 			'2s'
 		);
 
-		window.addEventListener(`DOMContentLoaded`, loadAnimation);
 		const thisHref = link_s.getAttribute(`href`);
-		// document.querySelector(`.preloader_animation`).classList.add(`show_preloader`);
+		preloaderAnimation.classList.add(`show_preloader`);
 		
 		setTimeout(() => {
-			window.removeEventListener(`DOMContentLoaded`, loadAnimation);
-			// document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`);
-			window.location.href = thisHref;
-
-		});
+			preloaderAnimation.classList.remove(`show_preloader`);
+			window.location.href = thisHref;}, 3000);
 
 	});
 
