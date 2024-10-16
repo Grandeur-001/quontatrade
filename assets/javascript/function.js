@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function loadAnimation() {
 	document.querySelector(`.preloader_animation`).classList.add(`show_preloader`);
 		setTimeout(() => {
-			document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`)}, 3000);
+			document.querySelector(`.preloader_animation`).classList.remove(`show_preloader`)}, 7000);
 
 }
 window.addEventListener(`DOMContentLoaded`, loadAnimation);
