@@ -63,7 +63,7 @@ if(firstEntry && performance.navigation.type === 0){
 	preloaderAnimation.classList.add(`show_preloader`);
 	setTimeout(() => {
 		preloaderAnimation.classList.remove(`show_preloader`);
-		window.location.href = thisHref;}, 6000);
+		window.location.href = thisHref;}, 9100);
 
 }
 if(performance.navigation.type === 1) {
