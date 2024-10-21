@@ -82,3 +82,21 @@ document.addEventListener("mouseup", dragStop);
 carousel.addEventListener("scroll", infiniteScroll);
 wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
 wrapper.addEventListener("mouseleave", autoPlay);
+
+carousel.addEventListener('scroll', function(event) {
+    event.scrollTo(0, window.scrollY); // Prevent horizontal scrolling
+});
+
+     // Prevent horizontal scrolling
+     carousel.addEventListener('wheel', function(event) {
+        if (event.deltaX !== 0) {
+            event.preventDefault(); // Prevent default horizontal scrolling
+        }
+    }, { passive: false });
+
+    carousel.addEventListener('touchmove', function(event) {
+        const touch = event.touches[0];
+        if (touch.clientX) {
+            event.preventDefault(); // Prevent default horizontal scrolling on touch devices
+        }
+    }, { passive: false });

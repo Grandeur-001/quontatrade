@@ -75,6 +75,27 @@ body{
     background-image: radial-gradient(at top right, var(--color-three-darkblue) 25%, #222633 100%);
 }
 
+/* ============STYLING AND ANIMATION FOR THE SCROLL WATCHER============= */
+.scroll_watcher{
+    height: 5px;
+    background: var(--color-five-white);
+    /* background: radial-gradient(at top left, var(--color-two-blue) 30%, var(--color-one-purple) 100%); */
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 99900;
+    transform-origin: left;
+    scale: 0 1;
+    animation: scroll-watcher linear;
+    animation-timeline: scroll();
+  }
+  
+  @keyframes scroll-watcher {
+    to{
+      scale: 1 1;
+    }
+  }
+
 
 /* ============STYLING FOR GOOGLE LANGUAGE TRANSLATOR=============//AT THE TOP// */
 .google-translator{
