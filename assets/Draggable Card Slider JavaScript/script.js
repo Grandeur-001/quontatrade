@@ -85,8 +85,11 @@ wrapper.addEventListener("mouseleave", autoPlay);
 
 
 
-carousel.addEventListener('wheel', function(event) {
-    if (event.deltaX !== 0) {
-        event.preventDefault(); // Prevent default horizontal scrolling
-    }
-}, { passive: false });
+     // Prevent horizontal scrolling
+     carousel.addEventListener('wheel', function(event) {
+        if (event.deltaX !== 0) {
+            event.preventDefault(); // Prevent default horizontal scrolling
+        }
+    }, { passive: false });
+
+

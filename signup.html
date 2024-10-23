@@ -25,7 +25,7 @@
 <style>
     @keyframes flash {
     0%{
-        transform: scale(0.88) translateY(25%);
+        transform: scale(0.12) translateY(35%);
         /* opacity: 0; */
   
       }
@@ -40,7 +40,7 @@
 /* ============STYLING AND ANIMATION FOR THE HTML TAG============= */
 html{
     scroll-behavior: smooth;
-    animation: flash 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    animation: flash 1s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 </style>
@@ -75,7 +75,8 @@ html{
                 </div>
             </header>
 
-            <form action="" method="" class="form_wrapper">
+            <form action="" method="" class="form_wrapper" onsubmit="return validateForm()" id="signup_form" >
+                <div id="error" class="error_message">Error Message !!!</div>
                 <div class="two_form_groups">
                     <div class="input-group">
                         <input type="text" required>
@@ -94,17 +95,17 @@ html{
                 </div>
 
                 <div class="input-group">
-                    <input type="email" required>
+                    <input type="email" id="email_input" required>
                     <label for="">Email Address</label>
                 </div>
 
                 <div class="input-group">
-                    <input type="number" required>
+                    <input type="number" id="phone_input" required>
                     <label for="">Phone Number</label>
                 </div>
 
                 <div class="input-group">
-                    <input type="password" id="password_input" required max="11" min="8">
+                    <input type="password" id="password_input" max="11" min="8" required>
                     <label for="">Password</label>
                     <div class="show_password">
                         <div class="image_wrapper" id="eye_icon_container" style="display: none;">
@@ -116,13 +117,14 @@ html{
                 </div>
 
                 <div class="input-group">
-                    <input type="" required>
+                    <input type="password" id="confirm_password_input" required>
                     <label for="">Confirm Password</label>
                 </div>
 
                 <div class="terms-conditions_checkbox_wrapper">
                     <div class="checkbox-wrapper-15">
-                        <input class="inp-cbx" id="cbx-15" type="checkbox" style="display: none;"/>
+                        <input type="checkbox" name="" id="hidden_cbx" style="position: absolute; opacity: 0; z-index: 999; height: 25px; width: 100px; left: -27px;">
+                        <input class="inp-cbx terms-conditions_checkbox" id="cbx-15" type="checkbox" style="display: none;"/>
                         <label class="cbx" for="cbx-15">
                           <span>
                             <svg width="12px" height="9px" viewbox="0 0 12 9">
@@ -130,8 +132,9 @@ html{
                             </svg>
                           </span>
                         </label>
+                        
                     </div>
-                    <label for="cbx-15">I agree to the Terms and Conditions</label>
+                    <label id="terms-conditions_label" for="cbx-15">I agree to the Terms and Conditions</label>
                 </div>
 
                 <div class="submit_btn_wrapper">
@@ -199,5 +202,6 @@ html{
         <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
         <script src="/assets/javascript/node_modules/lodash/lodash.min.js"></script>
 
+          
 
 </html>

@@ -29,6 +29,7 @@
 
 
 
+
 .wrapper{
     height: unset;
     display: flex;
@@ -118,6 +119,49 @@
 
 
 }
+.wrapper .form > form .error_message{
+    padding: 3px;
+    background: rgba(190, 31, 55, 0.201);
+    text-align: center;
+    color: rgb(255, 0, 38);
+    border-bottom: 1px solid rgb(255, 0, 38);
+    font-family: sans-serif;
+    transition: all 0.7s ease-in-out;
+    font-size: 11px;
+    font-weight: bold;
+    width: 100%;
+    animation: headShake  1s linear infinite;
+    font-family: PRO-FONT4;
+    letter-spacing: 0.8px;
+    opacity: 0;
+    /* visibility: hidden; */
+}
+@keyframes headShake {
+    0% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+    }
+    6.5% {
+      -webkit-transform: translateX(-6px) rotateY(-9deg);
+              transform: translateX(-6px) rotateY(-9deg);
+    }
+    18.5% {
+      -webkit-transform: translateX(5px) rotateY(7deg);
+              transform: translateX(5px) rotateY(7deg);
+    }
+    31.5% {
+      -webkit-transform: translateX(-3px) rotateY(-5deg);
+              transform: translateX(-3px) rotateY(-5deg);
+    }
+    43.5% {
+      -webkit-transform: translateX(2px) rotateY(3deg);
+              transform: translateX(2px) rotateY(3deg);
+    }
+    50% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+    }
+  }
 .two_form_groups{
     width: 100%;
     display: flex;
@@ -142,6 +186,7 @@
     margin-left: 10px;
     font-family: PRO-FONT1;
     letter-spacing: 0.7px;
+
 }
 
 .input-group input {
@@ -199,10 +244,11 @@
 }
 .checkbox-wrapper-15{
     scale: 0.88;
+    /* width: 100%; */
 }
 .checkbox-wrapper-15 .cbx {
-    -webkit-user-select: none;
-    user-select: none;
+    /* -webkit-user-select: none; */
+    /* user-select: none; */
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
   }
