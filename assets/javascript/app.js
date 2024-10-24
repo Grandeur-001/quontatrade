@@ -1,56 +1,4 @@
 
-const passwordInput = document.querySelector(`#password_input`);
-const showPassword = document.querySelector(`#show_hide`);
-const eyeIconWrapper = document.querySelector(`#eye_icon_container`);
-
-passwordInput.addEventListener(`keydown`, () => {
-    if(passwordInput.value === ``){
-        eyeIconWrapper.style.setProperty(
-            `display`,
-            `none`
-        )
-    }
-
-    else{
-        eyeIconWrapper.style.setProperty(
-            `display`,
-            `block`
-        )
-    };
-});
-
-
-
-
-
-showPassword.addEventListener(`click`, () => {
-
-    if(passwordInput.type === (`password`)) {
-        passwordInput.type = (
-            `text`
-        );
-
-        showPassword.src = (
-            `/assets/svg/eye-svgrepo-com.svg`
-        );
-
-    }
-
-    else{
-        passwordInput.type = (
-            `password`
-        );
-
-        showPassword.src = (
-            `/assets/svg/eye-off-svgrepo-com.svg`
-        );
-
-
-    }
-});
-
-
-
 const signUpform = document.getElementById(`signup_form`);
 let termsAndConditions_Label;
 let mainCheckboxDesign;
@@ -63,7 +11,7 @@ let hiddenCheckbox;
 termsAndConditions_Label.addEventListener(`click`, () => {
     hiddenCheckbox.checked = !hiddenCheckbox.checked;
 });
-hiddenCheckbox.addEventListener(`click`, () =>{
+hiddenCheckbox.addEventListener(`click`, () => {
     mainCheckboxDesign.checked = !mainCheckboxDesign.checked;
     
 });
@@ -86,6 +34,9 @@ signUpform.addEventListener(`submit`, (form_event) => {
     const conformPasswordInput = document.querySelector(`#confirm_password_input`).value;
     // //////////
     hiddenCheckbox = document.querySelector(`#hidden_cbx`);
+    // //////////
+    const preloaderAnimation = document.querySelector(`.preloader_animation`)
+
 
     
 
@@ -101,7 +52,10 @@ signUpform.addEventListener(`submit`, (form_event) => {
         MainErrorMessage.textContent = `Invalid Email format!`;
         form_event.preventDefault();
     }
-
+    else if (passwordInput === ``) {
+        MainErrorMessage.textContent = `Password is required`;
+        form_event.preventDefault();
+    }
     else if(!lengthRegex.test(passwordInput)) {
         MainErrorMessage.textContent = `Password must be at least 12 characters long.`;
         form_event.preventDefault();
@@ -128,7 +82,7 @@ signUpform.addEventListener(`submit`, (form_event) => {
         form_event.preventDefault();
     }
     else if(conformPasswordInput === ``) {
-        MainErrorMessage.textContent = `Retype password`;
+        MainErrorMessage.textContent = `Re-enter your password`;
         form_event.preventDefault();
     }
     else if(conformPasswordInput !== passwordInput) {
@@ -139,23 +93,60 @@ signUpform.addEventListener(`submit`, (form_event) => {
         MainErrorMessage.textContent = `You must agree to the terms and conditions`;
         form_event.preventDefault();
     } 
+    else {
+        preloaderAnimation.classList.add(`show_preloader`);
     
+        setTimeout(() => {
+            preloaderAnimation.classList.remove(`show_preloader`);
+            window.location.href = thisHref;
+        }, 6000);
+        form_event.preventDefault();
+
+        setTimeout(() => {
+            location.href = `login.html`;
+        },4000);
+    }
 
 
+});
 
+const passwordInput = document.querySelector(`#password_input`);
+const showPassword = document.querySelector(`#show_hide`);
+const eyeIconWrapper = document.querySelector(`#eye_icon_container`);
 
+passwordInput.addEventListener(`keydown`, () => {
+    if(passwordInput.value === ``){
+        eyeIconWrapper.style.setProperty(
+            `display`,
+            `none`
+        )
+    }
+    else{
+        eyeIconWrapper.style.setProperty(
+            `display`,
+            `block`
+        )
+    };
+});
 
+showPassword.addEventListener(`click`, () => {
 
-
-    
-
-
-
-
-
-
-
-    // form_event.preventDefault();
+    if(passwordInput.type === (`password`)) {
+        passwordInput.type = (
+            `text`
+        );
+        showPassword.src = (
+            `/assets/svg/eye-svgrepo-com.svg`
+        );
+    }
+    else{
+        passwordInput.type = (
+            `password`
+        );
+        showPassword.src = (
+            `/assets/svg/eye-off-svgrepo-com.svg`
+        );
+    }
 });
 
 
