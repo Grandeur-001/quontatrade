@@ -3,9 +3,6 @@ include 'connection.php';
 
 session_start();
 
-
-// logic to update users details
-
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
@@ -21,16 +18,15 @@ $phone = $_SESSION['user_phone'];
 // Initialize feedback messages
 $update_success = '';
 $update_error = '';
+$kyc_message = '';
 
-// Check if the form was submitted
+// Handle profile update
 if (isset($_POST['update_profile'])) {
-    // Get updated form data
     $new_fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $new_lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $new_email = mysqli_real_escape_string($conn, $_POST['email']);
     $new_phone = mysqli_real_escape_string($conn, $_POST['phone']);
 
-    // Update query
     $update_query = "UPDATE users SET 
                         firstname = '$new_fname', 
                         lastname = '$new_lname', 
@@ -38,42 +34,24 @@ if (isset($_POST['update_profile'])) {
                         phone = '$new_phone' 
                      WHERE user_id = $user_id";
 
-if (mysqli_query($conn, $update_query)) {
-    $_SESSION['user_firstname'] = $new_fname;
-    $_SESSION['user_lastname'] = $new_lname;
-    $_SESSION['user_email'] = $new_email;
-    $_SESSION['user_phone']= $new_phone;
+    if (mysqli_query($conn, $update_query)) {
+        $_SESSION['user_firstname'] = $new_fname;
+        $_SESSION['user_lastname'] = $new_lname;
+        $_SESSION['user_email'] = $new_email;
+        $_SESSION['user_phone'] = $new_phone;
 
-    $_SESSION['update_message'] = "Profile updated successfully.";
-    $_SESSION['update_type'] = "success";
-    $_SESSION['update_time'] = time();
-} else {
-    $_SESSION['update_message'] = "Error updating profile: " . mysqli_error($conn);
-    $_SESSION['update_type'] = "error";
-    $_SESSION['update_time'] = time();
+        $update_success = 'Profile updated successfully.';
+    } else {
+        $update_error = 'Error updating profile: ' . mysqli_error($conn);
+    }
 }
 
-header("Location: profile.php");
-exit();
-
-}
-
-
-// logic to update password
-
-
-$update_success = '';
-$update_error = '';
-
-// Process the form submission when the button is clicked
+// Handle password change
 if (isset($_POST['change_password_btn'])) {
-    // Get the form input
     $current_password = mysqli_real_escape_string($conn, $_POST['current_password']);
     $new_password = mysqli_real_escape_string($conn, $_POST['new_password']);
     $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
 
-    // Fetch the user's current password from the database
-    $user_id = $_SESSION['user_id'];
     $query = "SELECT password FROM users WHERE user_id = '$user_id'";
     $result = mysqli_query($conn, $query);
 
@@ -81,15 +59,11 @@ if (isset($_POST['change_password_btn'])) {
         $row = mysqli_fetch_assoc($result);
         $stored_password = $row['password'];
 
-        // Verify the current password
         if (password_verify($current_password, $stored_password)) {
-            // Check if the new password matches the confirm password
             if ($new_password === $confirm_password) {
-                // Hash the new password
                 $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
 
-                // Update the password in the database
-                $update_query = "UPDATE users SET password = '$hashed_password' WHERE id = '$user_id'";
+                $update_query = "UPDATE users SET password = '$hashed_password' WHERE user_id = '$user_id'";
                 if (mysqli_query($conn, $update_query)) {
                     $update_success = 'Password updated successfully.';
                 } else {
@@ -106,8 +80,65 @@ if (isset($_POST['change_password_btn'])) {
     }
 }
 
+/// Initialize feedback and KYC details variables
+$kyc_message = '';
+$dob = '';
+$address = '';
+$gov_id = '';
+$id_number = '';
+$status = 'KYC Not Submitted';
 
+// Fetch existing KYC details
+$kyc_query = "SELECT dob, address, gov_id, id_number,status FROM kyc_details WHERE user_id = ?";
+$stmt = mysqli_prepare($conn, $kyc_query);
+mysqli_stmt_bind_param($stmt, "i", $user_id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
 
+if ($result && mysqli_num_rows($result) > 0) {
+    $kyc_data = mysqli_fetch_assoc($result);
+    $dob = $kyc_data['dob'] ?? '';
+    $address = $kyc_data['address'] ?? '';
+    $gov_id = $kyc_data['gov_id'] ?? '';
+    $id_number = $kyc_data['id_number'] ?? '';
+    $status = $kyc_data['status'] ?? 'KYC Not Submitted'; // Get the status
 
+}
 
+// Handle KYC submission
+if (isset($_POST['submit_kyc'])) {
+    $dob = mysqli_real_escape_string($conn, $_POST['dob']);
+    $address = mysqli_real_escape_string($conn, $_POST['address']);
+    $gov_id = mysqli_real_escape_string($conn, $_POST['gov_id']);
+    $id_number = mysqli_real_escape_string($conn, $_POST['id_number']);
+
+    // Check if KYC details already exist for the user
+    $check_query = "SELECT * FROM kyc_details WHERE user_id = ?";
+    $stmt = mysqli_prepare($conn, $check_query);
+    mysqli_stmt_bind_param($stmt, "i", $user_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        // Update existing KYC details
+        $update_query = "UPDATE kyc_details SET dob = ?, address = ?, gov_id = ?, id_number = ?, status = 'Unverified' WHERE user_id = ?";
+        $stmt = mysqli_prepare($conn, $update_query);
+        mysqli_stmt_bind_param($stmt, "ssssi", $dob, $address, $gov_id, $id_number, $user_id);
+        if (mysqli_stmt_execute($stmt)) {
+            $kyc_message = 'KYC details updated successfully.';
+        } else {
+            $kyc_message = 'Error updating KYC details: ' . mysqli_error($conn);
+        }
+    } else {
+        // Insert new KYC details
+        $insert_query = "INSERT INTO kyc_details (user_id, dob, address, gov_id, id_number, status) VALUES (?, ?, ?, ?, ?, 'Unverified')";
+        $stmt = mysqli_prepare($conn, $insert_query);
+        mysqli_stmt_bind_param($stmt, "issss", $user_id, $dob, $address, $gov_id, $id_number);
+        if (mysqli_stmt_execute($stmt)) {
+            $kyc_message = 'KYC details submitted successfully.';
+        } else {
+            $kyc_message = 'Error submitting KYC details: ' . mysqli_error($conn);
+        }
+    }
+}
 ?>

@@ -115,13 +115,13 @@
                       <div class="profile_box">
                           <ul>
                               <li>
-                                  <a href="profile.php">
+                                  <a href="admin_profile.php">
                                       <i class="material-icons">person_outline</i>
                                       <span>Profile</span>
                                   </a>
                               </li>
                               <li>
-                                  <a href="#">
+                                  <a href="admin_wallet_page.php">
                                       <i class="material-icons">account_balance_wallet</i>
                                       <span>Wallet</span>
                                   </a>
@@ -152,12 +152,10 @@
                   <script>
                       document.addEventListener('contextmenu', (event) => event.preventDefault());
                           document.onkeydown = function(e) {
-                              // Disable F12, Ctrl+Shift+I (Inspector), Ctrl+Shift+J (Console), Ctrl+U (View Source)
-                              if (e.keyCode == 123 || // F12
-                                  (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || // Ctrl+Shift+I
-                                  (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || // Ctrl+Shift+J
-                                  (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) { // Ctrl+U
-                                  return false; // Prevent the event
+                              if (e.keyCode == 123 || 
+                                  (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) || 
+                                  (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) || 
+                                  (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) {
                               }
                           };
                   </script>
@@ -169,73 +167,77 @@
         </div>
       </header>
 
+      <?php
 
+        include 'admin_confirm_decline.php'                  
+
+      ?>
 
     
         
-      <aside class="sidebar">
-          <div class="wrapper">
+    <aside class="sidebar">
+        <div class="wrapper">
 
 
-              <div class="sidebar_menu">
-                  <ul>
-                      <li>
-                          <a href="admin_dashboard.php">
-                              <i class="material-icons">dashboard</i>
-                              <span>Home</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="swap.php">
-                              <i class="material-icons">swap_calls</i>
-                              <span>Swap</span>
-                          </a>
-                      </li>
+            <div class="sidebar_menu">
+                <ul>
+                    <li>
+                        <a href="admin_dashboard.php">
+                            <i class="material-icons">dashboard</i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin_swap.php">
+                            <i class="material-icons">swap_calls</i>
+                            <span>Swap</span>
+                        </a>
+                    </li>
 
-                      <li>
-                          <a href="users.php">
-                              <i class="fa fa-user-o"></i>
-                              <span>Users</span>
-                          </a>
-                      </li>
+                    <li>
+                        <a href="users.php">
+                            <i class="fa fa-user-o"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
 
-                      <li>
-                          <a href="admin_history.php">
-                              <i class="material-icons">history</i>
-                              <span>History</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="features.php">
-                              <i class="material-icons">widgets</i>
-                              <span>Features</span>
-                          </a>
-                      </li>
-                      <li>
-                          <a href="market.php">
-                              <i class="material-icons">store</i>
-                              <span>Market</span>
-                          </a>
-                      </li>
-                  </ul>
-              </div>
+                    <li>
+                        <a href="admin_history.php">
+                            <i class="material-icons">history</i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin_features.php">
+                            <i class="material-icons">widgets</i>
+                            <span>Features</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="admin_market.php">
+                            <i class="material-icons">store</i>
+                            <span>Market</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-              <div class="sidebar_widgets">
-                <div class="wrapper">
-                  <div class="image">
-                    <img src="assets/images/crypto-join.png" alt="">
-                  </div>
-                  <div class="text">
-                    <h3>Invest Now!</h3>
-                    <a href="">
-                      Buy and Sell Coins
-                    </a>
-                    <br><br>
-                  </div>
+            <div class="sidebar_widgets">
+            <div class="wrapper">
+                <div class="image">
+                <img src="assets/images/crypto-join.png" alt="">
                 </div>
-              </div>
-          </div>
-      </aside>
+                <div class="text">
+                <h3>Invest Now!</h3>
+                <a href="">
+                    Buy and Sell Coins
+                </a>
+                <br><br>
+                </div>
+            </div>
+            </div>
+        </div>
+    </aside>
 
         <main class="main_content">
 
@@ -263,150 +265,16 @@
                 </header>
 
                 <div class="transactions">
-                    <div class="transaction-card">
-                        <div class="transaction-header">
-                            <div class="hash">48be8abf581ff0</div>
-                            <div class="amount">0.0109 BTC</div>
-                        </div>
-                        <div class="transaction-details">
-                            <div class="detail-row">
-                                <span class="label">Date:</span>
-                                <span class="value">2024-11-20</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="label">Preference:</span>
-                                <span class="value">High</span>
-                            </div>
-                            <div class="status-row">
-                                <div>
-
-
-                                    <!-- [EITHER SUCCESSFULL, PENDINDG OR DECLINED FOR BACKEND (PHP IF STATEMENT, IF SUCCESSFULL || PENDING || DECLINED)] -->
-
-                                    <span class="status-badge" style="background: #eab20817; color: var(--pending-color);">Pending</span>
-                                    <!-- <span class="status-badge" style="background: rgba(34, 197, 94, 0.1); color: var(--positive-color);">Successful</span> -->
-                                    <!-- <span class="status-badge" style="background: #ea080817; color: var(--negative-color);">Declined</span> -->
-    
-
-                                    <br>
-
-                                    <!-- [EITHER DEBIT OR CREDIT FOR BACKEND (PHP IF STATEMENT, IF CREDIT || DEBIT)] -->
-                                     
-                                    <span class="type-badge credit" style="background-color: rgba(34, 197, 94, 0.1);color: var(--positive-color); ">Credit</span>
-                                    <!-- <span class="type-badge credit" style="background: #ea080817;color: var(--negative-color); ">Debit</span> -->
-                                </div>
-
-
-                                <!--  (backend to view transaction details here) -->
-                                <div class="transaction-dropdown">
-                                    <button class="dropdown-button"><i class="fa fa-sort-down"></i></button>
-                                    <div class="transaction-dropdown-menu">
-                                        <button type="submit" class="popup_trigger dropdown-item">Update</button>
-                                        <button type="submit" class="dropdown-item">View</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="transaction-card">
-                        <div class="transaction-header">
-                            <div class="hash">48be8abf581ff0</div>
-                            <div class="amount">0.0109 BTC</div>
-                        </div>
-                        <div class="transaction-details">
-                            <div class="detail-row">
-                                <span class="label">Date:</span>
-                                <span class="value">2024-11-20</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="label">Preference:</span>
-                                <span class="value">High</span>
-                            </div>
-                            <div class="status-row">
-                                <div>
-
-
-                                    <!-- [EITHER SUCCESSFULL, PENDINDG OR DECLINED FOR BACKEND (PHP IF STATEMENT, IF SUCCESSFULL || PENDING || DECLINED)] -->
-
-                                    <span class="status-badge" style="background: #eab20817; color: var(--pending-color);">Pending</span>
-                                    <!-- <span class="status-badge" style="background: rgba(34, 197, 94, 0.1); color: var(--positive-color);">Successful</span> -->
-                                    <!-- <span class="status-badge" style="background: #ea080817; color: var(--negative-color);">Declined</span> -->
-    
-
-                                    <br>
-
-                                    <!-- [EITHER DEBIT OR CREDIT FOR BACKEND (PHP IF STATEMENT, IF CREDIT || DEBIT)] -->
-                                     
-                                    <span class="type-badge credit" style="background-color: rgba(34, 197, 94, 0.1);color: var(--positive-color); ">Credit</span>
-                                    <!-- <span class="type-badge credit" style="background: #ea080817;color: var(--negative-color); ">Debit</span> -->
-                                </div>
-
-
-                                <!--  (backend to view transaction details here) -->
-                                <div class="transaction-dropdown">
-                                    <button class="dropdown-button"><i class="fa fa-sort-down"></i></button>
-                                    <div class="transaction-dropdown-menu">
-                                        <button type="submit" class="popup_trigger dropdown-item">Update</button>
-                                        <button type="submit" class="dropdown-item">View</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="transaction-card">
-                        <div class="transaction-header">
-                            <div class="hash">48be8abf581ff0</div>
-                            <div class="amount">0.0109 BTC</div>
-                        </div>
-                        <div class="transaction-details">
-                            <div class="detail-row">
-                                <span class="label">Date:</span>
-                                <span class="value">2024-11-20</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="label">Preference:</span>
-                                <span class="value">High</span>
-                            </div>
-                            <div class="status-row">
-                                <div>
-
-
-                                    <!-- [EITHER SUCCESSFULL, PENDINDG OR DECLINED FOR BACKEND (PHP IF STATEMENT, IF SUCCESSFULL || PENDING || DECLINED)] -->
-
-                                    <span class="status-badge" style="background: #eab20817; color: var(--pending-color);">Pending</span>
-                                    <!-- <span class="status-badge" style="background: rgba(34, 197, 94, 0.1); color: var(--positive-color);">Successful</span> -->
-                                    <!-- <span class="status-badge" style="background: #ea080817; color: var(--negative-color);">Declined</span> -->
-    
-
-                                    <br>
-
-                                    <!-- [EITHER DEBIT OR CREDIT FOR BACKEND (PHP IF STATEMENT, IF CREDIT || DEBIT)] -->
-                                     
-                                    <span class="type-badge credit" style="background-color: rgba(34, 197, 94, 0.1);color: var(--positive-color); ">Credit</span>
-                                    <!-- <span class="type-badge credit" style="background: #ea080817;color: var(--negative-color); ">Debit</span> -->
-                                </div>
-
-
-                                <!--  (backend to view transaction details here) -->
-                                <div class="transaction-dropdown">
-                                    <button class="dropdown-button"><i class="fa fa-sort-down"></i></button>
-                                    <div class="transaction-dropdown-menu">
-                                        <button type="submit" class="popup_trigger dropdown-item">Update</button>
-                                        <button type="submit" class="dropdown-item">View</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    
+                  <?php
+                  
+                  displayTransactions();
+                  ?>          
+                          
                 </div>
             </div>
 
-         </main>
+        </main>
 
       
       <footer class="dashboard_footer">
@@ -420,7 +288,7 @@
         <div class="wrapper">
             <ul>
                 <li>
-                    <a href="dashboard.php">
+                    <a href="admin_dashboard.php">
                         <i class="material-icons">dashboard</i>
                         <span>Home</span>
                     </a>
@@ -429,7 +297,7 @@
 
             <ul>
                 <li>
-                    <a href="swap.php">
+                    <a href="admin_swap.php">
                         <i class="material-icons">swap_calls</i>
                         <span>Swap</span>
                     </a>
@@ -469,153 +337,160 @@
 
 
       <!-- CONFIRM / DECLINE TRASACTION  (POP-UP BOX)-->
-      <section class="confirm_decline">
+      <!-- <section class="confirm_decline">
         <div class="bg_overlay">
             <div class="popup_box">
+            <div class="wrapper">
+                <header>
+                <span>
+                    Confirm/Decline   
+                    <samp class="firstname"></samp>
+                    <samp class="lastname"></samp>
+                    transaction
+                </span>
+                <i class="material-icons close_confirm_decline">close</i>
+                </header>
+                <main class="question">
+                <span>Are you sure you want to confirm/decline this transaction?</span>
+                </main>
+                <footer class="confirm_decline_buttons">
                 <div class="wrapper">
-                    <header>
-                        <div class="wrapper">
-                            <!-- SAMP TAG is FOR THE NAME OF THE USER FROM THE BACKEND (first name and last name) -->
-                            <span>
-                                
-                                Confirm/Decline   
-
-                                <samp class="firstname">"OBINNA</samp>
-                                <samp class="lastname">OJO'S"</samp>
-
-
-                                transaction
-                            </span>
-                            <i class="material-icons close_confirm_decline">close</i>
-                            <!-- <i class="fa fa-close close_confirm_decline"></i> -->
-                        </div>
-                    </header>
-                    <main class="question">
-                        <span>Are you sure you want to confirm/ decline this transacton?</span>
-                    </main>
-                    <footer class="confirm_decline_buttons">
-                        <div class="wrapper">
-                        <!-- BUTTONS TO CLOSE CONFIRM OR DECLINE TRANSACTIONS BY THE USERS -->
-                            <button name="close" id="close" class="close" type="button">Close</button>
-                            <button onclick="showToast('success')" name="confirm" id="confirm" class="btn confirm" type="button">Confirm</button>
-                            <button onclick="showToast('decline')" name="decline" id="decline" class="btn decline" type="button">Decline</button>
-                        </div>
-                    </footer>
+                    <button id="close" class="close" type="button">Close</button>
+                    <button onclick="confirmTransaction()" name="confirm" id="confirm" class="btn confirm" type="button">Confirm</button>
+                    <button onclick="declineTransaction()" name="decline" id="decline" class="btn decline" type="button">Decline</button>
+                    
                 </div>
+                </footer>
             </div>
-            <div class="toast-container" id="toastContainer"></div>
-            <script>
-                function showToast(type) {
-                    const container = document.getElementById('toastContainer');
-                    const toast = document.createElement('div');
-                    toast.className = `toast ${type}`;
-                    
-                    const icons = {
-                        success: '✓',
-                        decline: '✕'
-                    };
-                    
-                    const titles = {
-                        success: 'Success',
-                        decline: 'Error'
-                    };
-                    
-                    const messages = {
-                        success: 'Transaction confirmed successfully',
-                        decline: 'You just declined this transaction'
-                    };
-                    
-                    toast.innerHTML = `
-                        <div class="toast-icon">${icons[type]}</div>
-                        <div class="toast-content">
-                            <div class="toast-title">${titles[type]}</div>
-                            <div class="toast-message">${messages[type]}</div>
-                        </div>
-                        <button class="close-btn" onclick="closeToast(this)">×</button>
-                    `;
-                    
-                    const maxToasts = 3;
-                    while (container.children.length >= maxToasts) {
-                        container.removeChild(container.lastChild);
-                    }
-                    
-                    container.insertBefore(toast, container.firstChild);
-                    
-                    toast.offsetHeight;
-                    
-                    requestAnimationFrame(() => {
-                        toast.classList.add('show');
-                    });
-                    
-                    if (window.navigator && window.navigator.vibrate) {
-                        window.navigator.vibrate(50);
-                    }
-                    
-                    const timeout = setTimeout(() => {
-                        if (toast.parentElement) {
-                            closeToast(toast.querySelector('.close-btn'));
-                        }
-                    }, 4000);
-                    
-                    toast.dataset.timeoutId = timeout;
-                }
-
-                function closeToast(closeButton) {
-                    const toast = closeButton.parentElement;
-                    
-                    if (toast.dataset.timeoutId) {
-                        clearTimeout(parseInt(toast.dataset.timeoutId));
-                    }
-                    
-                    toast.classList.remove('show');
-                    
-                    setTimeout(() => {
-                        if (toast.parentElement) {
-                            toast.parentElement.removeChild(toast);
-                        }
-                    }, 400);
-                }
-            </script>
-
+            </div>
         </div>
-        <!-- <div class="toast-container" id="toastContainer"></div> -->
-      </section>
- 
-    <!-- ============JAVASCRIPT-LINKS============= -->
-    <script src="assets/user/javascript/popup.js"></script>
-    <script>
-        const popupTrigger = document.querySelectorAll(".popup_trigger");
-        const confirmDecline = document.querySelector(".confirm_decline");
-        const popupBox = document.querySelector(".popup_box");
-        const closeConfirmDecline = document.querySelector(".close_confirm_decline");
-        currentPopupTrigger = null;
+        <div class="toast-container" id="toastContainer"></div>
+        </section> -->
 
-        popupTrigger.forEach((popup_trigger => {
-            popup_trigger.addEventListener("click", function() {
-                currentPopupTrigger = event.currentTarget;
-                confirmDecline.style.visibility = "visible";
-                confirmDecline.style.opacity = "1";
+     
+        <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const popupTriggers = document.querySelectorAll('.popup_trigger');
+    const confirmDecline = document.querySelector('.confirm_decline');
+    const popupBox = document.querySelector('.popup_box');
+    const closeButtons = document.querySelectorAll('.close_confirm_decline, #close');
+    const toastContainer = document.getElementById('toastContainer');
 
-                popupBox.style.opacity = 1;
-                popupBox.style.transform = "translateY(0)";
-            });
-        }));
+    let currentTransactionId = null;
 
-        const removePopup = function() {
-            confirmDecline.style.visibility = "hidden";
-            confirmDecline.style.opacity = "0";
+    // Open popup on button click
+    popupTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function () {
+            const status = this.getAttribute('data-status').trim().toLowerCase();
+            currentTransactionId = this.getAttribute('data-transaction-id');
+            const firstname = this.getAttribute('data-firstname');
+            const lastname = this.getAttribute('data-lastname');
 
-            popupBox.style.opacity = 0;
-            popupBox.style.transform = "translateY(-90%)";
-        }
+            if (status === 'pending') {
+                confirmDecline.querySelector('.firstname').textContent = firstname + " ";
+                confirmDecline.querySelector('.lastname').textContent = lastname + " ";
+                confirmDecline.style.visibility = 'visible';
+                confirmDecline.style.opacity = '1';
+                popupBox.style.opacity = '1';
+                popupBox.style.transform = 'translateY(0)';
+            } else {
+                alert('This transaction cannot be confirmed or declined because it is not pending.');
+            }
+        });
+    });
 
-        closeConfirmDecline.addEventListener("click", removePopup);
+    // Close popup on button click
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+            confirmDecline.style.visibility = 'hidden';
+            confirmDecline.style.opacity = '0';
+            popupBox.style.opacity = '0';
+            popupBox.style.transform = 'translateY(-90%)';
+        });
+    });
+
+    // Show toast message
+    function showToast(type, message) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        toast.innerHTML = `
+            <div class="toast-icon">${type === 'success' ? '✓' : '✕'}</div>
+            <div class="toast-content">
+                <div class="toast-title">${type === 'success' ? 'Success' : 'Error'}</div>
+                <div class="toast-message">${message}</div>
+            </div>
+            <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+        `;
+        toastContainer.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    // Confirm transaction
+    window.confirmTransaction = function () {
         
+        if (!currentTransactionId) return showToast('error', 'No transaction selected.');
 
+        fetch('admin_confirm_decline.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ transaction_id: currentTransactionId, action: 'confirm' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showToast('success', 'Transaction confirmed successfully.');
+                const transactionCard = document.querySelector(`[data-transaction-id="${currentTransactionId}"]`);
+                if (transactionCard) {
+                    const statusBadge = transactionCard.querySelector('.status-badge');
+                    statusBadge.textContent = 'Completed';
+                }
+            } else {
+                showToast('error', data.message || 'Failed to confirm transaction.');
+            }
+        })
+        .catch(() => showToast('error', 'An error occurred while confirming the transaction.'))
+        .finally(() => closePopup());
+    };
 
+    // Decline transaction
+    window.declineTransaction = function () {
+        if (!currentTransactionId) return showToast('error', 'No transaction selected.');
 
+        fetch('admin_confirm_decline.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ transaction_id: currentTransactionId, action: 'decline' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                showToast('success', 'Transaction declined successfully.');
+                const transactionCard = document.querySelector(`[data-transaction-id="${currentTransactionId}"]`);
+                if (transactionCard) {
+                    const statusBadge = transactionCard.querySelector('.status-badge');
+                    statusBadge.textContent = 'Failed';
+                }
+            } else {
+                showToast('error', data.message || 'Failed to decline transaction.');
+            }
+        })
+        .catch(() => showToast('error', 'An error occurred while declining the transaction.'))
+        .finally(() => closePopup());
+    };
 
-    </script>
+    // Close popup helper
+    function closePopup() {
+        confirmDecline.style.visibility = 'hidden';
+        confirmDecline.style.opacity = '0';
+        popupBox.style.opacity = '0';
+        popupBox.style.transform = 'translateY(-90%)';
+    }
+});
+
+</script>
 </body>
+<script src="assets/user/javascript/popup.js"></script>
+<script src="assets/user/javascript/function.js"></script>
+
 </html>
 

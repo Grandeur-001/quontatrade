@@ -128,13 +128,13 @@ addLoginNotification($user_lname);
                       <div class="profile_box">
                           <ul>
                               <li>
-                                  <a href="profile.php">
+                                  <a href="admin_profile.php">
                                       <i class="material-icons">person_outline</i>
                                       <span>Profile </span>
                                   </a>
                               </li>
                               <li>
-                                  <a href="#">
+                                  <a href="admin_wallet_page.php">
                                       <i class="material-icons">account_balance_wallet</i>
                                       <span>Wallet</span>
                                   </a>
@@ -181,8 +181,13 @@ addLoginNotification($user_lname);
           </div>
         </div>
       </header>
+            
 
-
+        <?php
+        
+             include 'dashboard_logic.php'             
+        
+        ?>
 
     
         
@@ -200,7 +205,7 @@ addLoginNotification($user_lname);
                           </a>
                       </li>
                       <li>
-                          <a href="swap.php">
+                          <a href="admin_swap.php">
                               <i class="material-icons">swap_calls</i>
                               <span>Swap</span>
                           </a>
@@ -220,13 +225,13 @@ addLoginNotification($user_lname);
                           </a>
                       </li>
                       <li>
-                          <a href="features.php">
+                          <a href="admin_features.php">
                               <i class="material-icons">widgets</i>
                               <span>Features</span>
                           </a>
                       </li>
                       <li>
-                          <a href="market.php">
+                          <a href="admin_market.php">
                               <i class="material-icons">store</i>
                               <span>Market</span>
                           </a>
@@ -259,11 +264,11 @@ addLoginNotification($user_lname);
                   <div class="users_balance_section">
                       <div>
                           <span>Wallet <i class="material-icons">keyboard_arrow_down</i></span>
-                          <span id="amount" class="user-balance scramble-text">$34,000.00</span>
+                          <span id="amount" class="user-balance scramble-text">$<?php echo number_format($balance, 2); ?></span>
 
                           <script>
                             function scrambleText(element, originalText, steps, interval) {
-                              const characters = '0123456789$,.'; // Characters used for scrambling
+                              const characters = '0123456789$,.'; 
                               let scrambled = originalText.split('');
                               
                               let step = 0;
@@ -282,7 +287,7 @@ addLoginNotification($user_lname);
                             }
                         
                             const span = document.querySelector('#amount');
-                            const originalText = '$34,000.00';
+                            const originalText = '$<?php echo number_format($balance, 2); ?>';
                         
                             // Run the animation once on page load
                             scrambleText(span, originalText, 15, 100); // 15 steps, 100ms per step
@@ -299,31 +304,37 @@ addLoginNotification($user_lname);
                   <div class="action_cards">
                       <div class="wrapper">
                           <div class="card">
-                              <a href="dashboard.php">
+                              <a href="admin_send.php">
                                   <span><i class="material-icons">arrow_upward</i></span>
                                   <span>Send</span>
                               </a>
                           </div>
                           <div class="card">
-                              <a href="deposit.php">
+                              <a href="admin_deposit.php">
                                   <span><i class="material-icons">arrow_downward</i></span>
                                   <span>Deposit</span>
                               </a>
                           </div>
                           <div class="card">
-                              <a href="#">
+                              <a href="admin_sell.php">
                                   <span><i class="material-icons">sell</i></span>
                                   <span>Sell</span>
                               </a>
                           </div>
                           <div class="card">
-                              <a href="swap.php">
+                              <a href="admin_swap.php">
                                   <span><i class="material-icons">swap_calls</i></span>
                                   <span>Swap</span>
                               </a>
                           </div>
                           <div class="card">
-                              <a href="#">
+                               <a href="users.php">
+                                    <i class="fa fa-user-o"></i>
+                                    <span>Users</span>
+                               </a>
+                          </div>
+                          <div class="card">
+                              <a href="admin_history.php">
                                   <span><i class="material-icons">history</i></span>
                                   <span>History</span>
                               </a>
@@ -335,7 +346,7 @@ addLoginNotification($user_lname);
                     <div class="wrapper">
                       <ul>
                           <li>
-                              <a href="dashboard.php">
+                              <a href="admin_send.php">
                                 <span><i class="material-icons">arrow_upward</i></span>
                                 <span>Send</span>
                               </a>
@@ -344,7 +355,7 @@ addLoginNotification($user_lname);
           
                       <ul>
                           <li>
-                              <a href="dashboard.php">
+                              <a href="admin_dashboard.php">
                                 <span><i class="material-icons">arrow_downward</i></span>
                                 <span>Deposit</span>
                               </a>
@@ -353,7 +364,7 @@ addLoginNotification($user_lname);
           
                       <ul>
                           <li>
-                              <a href="dashboard.php">
+                              <a href="admin_sell.php">
                                 <span><i class="material-icons">sell</i></span>
                                 <span>Sell</span>
                               </a>
@@ -362,7 +373,7 @@ addLoginNotification($user_lname);
           
                       <ul>
                           <li>
-                              <a href="swap.php">
+                              <a href="admin_swap.php">
                                   <span><i class="material-icons">swap_calls</i></span>
                                   <span>Swap</span>
                               </a>
@@ -371,7 +382,7 @@ addLoginNotification($user_lname);
           
                       <ul>
                           <li>
-                              <a href="dashboard.php">
+                              <a href="admin_history.php">
                                   <i class="material-icons">history</i>
                                   <span>History</span>
                               </a>
@@ -382,9 +393,6 @@ addLoginNotification($user_lname);
 
                 </div>
               </section>
-              <br><br>
-              
-            
             <?php
                 
                 include 'wallet.php';
@@ -410,7 +418,7 @@ addLoginNotification($user_lname);
         <div class="wrapper">
             <ul>
                 <li>
-                    <a href="dashboard.php">
+                    <a href="admin_dashboard.php">
                         <i class="material-icons">dashboard</i>
                         <span>Home</span>
                     </a>
@@ -419,12 +427,22 @@ addLoginNotification($user_lname);
 
             <ul>
                 <li>
-                    <a href="swap.php">
+                    <a href="admin_swap.php">
                         <i class="material-icons">swap_calls</i>
                         <span>Swap</span>
                     </a>
                 </li>
             </ul>
+            
+            <ul>
+                <li>
+                    <a href="users.php">
+                        <i class="fa fa-user-o"></i>
+                        <span>Users</span>
+                    </a>
+                </li>
+            </ul>
+            
 
             <ul>
                 <li>

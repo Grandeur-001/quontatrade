@@ -1,0 +1,69 @@
+Array
+(
+    [transactionId] => txn_6762e428d1d53
+    [cryptoSymbol] => USDT
+    [amount] => 1000
+    [walletAddress] => TVQ6niiLUweyAEL6ZidMVBKkAi8UNKesRs
+    [qrCode] => https://i.imgur.com/9VeaIbb.jpeg
+    [userId] => 483235
+)
+Received data: Array
+(
+    [crypto_id] => 5
+)
+
+Received data: Array
+(
+    [crypto_id] => 3
+)
+
+Received data: Array
+(
+    [crypto_id] => 10
+)
+
+Received data: Array
+(
+    [crypto_id] => 12
+)
+
+Received data: Array
+(
+    [crypto_id] => 14
+)
+
+Received data: Array
+(
+    [crypto_id] => 17
+)
+
+Received data: Array
+(
+    [crypto_id] => 19
+)
+
+Received data: Array
+(
+    [crypto_id] => 2
+)
+
+Received data: Array
+(
+    [crypto_id] => 2
+)
+
+Received data: Array
+(
+    [crypto_id] => 2
+)
+
+Received data: Array
+(
+    [crypto_id] => 2
+)
+
+Received data: Array
+(
+    [crypto_id] => 2
+)
+

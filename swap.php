@@ -60,6 +60,8 @@ addLoginNotification($user_lname);
 
         <noscript> Powered by <a href=“https://www.smartsupp.com” target=“_blank”>Smartsupp</a></noscript>
     </head>
+
+
     <style>
         html{
           animation: none;
@@ -131,13 +133,13 @@ addLoginNotification($user_lname);
                       <div class="profile_box">
                           <ul>
                               <li>
-                                  <a href="profile.php">
+                                  <a href="admin_profile.php">
                                       <i class="material-icons">person_outline</i>
                                       <span>Profile</span>
                                   </a>
                               </li>
                               <li>
-                                  <a href="#">
+                                  <a href="wallet_page.php">
                                       <i class="material-icons">account_balance_wallet</i>
                                       <span>Wallet</span>
                                   </a>
@@ -183,7 +185,13 @@ addLoginNotification($user_lname);
               </div>
           </div>
         </div>
+
       </header>
+    <?php
+    
+        include 'swap_logic.php'
+    
+    ?>
 
 
 
@@ -346,6 +354,7 @@ addLoginNotification($user_lname);
             <div id="widgetWrapper" class="widget_wrapper"></div>
 
             <script>
+                // List of widgets (TradingView)
                 const widgets = [
                     { symbol: "BITSTAMP:BTCUSD", name: "BTC/USD" },
                     { symbol: "BITSTAMP:ETHUSD", name: "ETH/USD" },
@@ -377,7 +386,86 @@ addLoginNotification($user_lname);
                     `;
                     widgetWrapper.appendChild(widgetCard);
                 });
+
+                // Example data for cryptocurrencies, replace with actual data from your server
+                const staticCryptoData = [
+                    { symbol: 'BTC', amount: 1.5, name: 'Bitcoin' },
+                    { symbol: 'ETH', amount: 3.0, name: 'Ethereum' },
+                    { symbol: 'LTC', amount: 10.0, name: 'Litecoin' },
+                    { symbol: 'XRP', amount: 1000, name: 'Ripple' },
+                    { symbol: 'DOGE', amount: 5000, name: 'Dogecoin' }
+                ];
+
+                const fromSelect = document.getElementById('crypto-from');
+                const toSelect = document.getElementById('crypto-to');
+
+                // Populate "From" and "To" dropdowns
+                staticCryptoData.forEach(crypto => {
+                    const fromOption = document.createElement('option');
+                    fromOption.value = crypto.symbol;
+                    fromOption.textContent = `${crypto.name} (${crypto.amount} available)`;
+                    fromSelect.appendChild(fromOption);
+
+                    const toOption = document.createElement('option');
+                    toOption.value = crypto.symbol;
+                    toOption.textContent = crypto.name;
+                    toSelect.appendChild(toOption);
+                });
+
+                // Calculate how much the user will receive
+                document.getElementById('amount-from').addEventListener('input', function() {
+                    const fromSymbol = fromSelect.value;
+                    const toSymbol = toSelect.value;
+                    const amountFrom = parseFloat(this.value);
+
+                    if (isNaN(amountFrom) || amountFrom <= 0) return;
+
+                    // Here, you should replace these prices with live prices from your server or an API
+                    const fromPrice = staticCryptoData.find(crypto => crypto.symbol === fromSymbol).amount;
+                    const toPrice = staticCryptoData.find(crypto => crypto.symbol === toSymbol).amount;
+
+                    // Calculate the amount to receive
+                    const amountTo = (amountFrom * toPrice / fromPrice).toFixed(4);
+                    document.getElementById('amount-to').value = amountTo;
+                });
+
+                document.getElementById('swap-btn').addEventListener('click', async function () {
+                    const fromSymbol = fromSelect.value;
+                    const toSymbol = toSelect.value;
+                    const amountFrom = parseFloat(document.getElementById('amount-from').value);
+                    const amountTo = parseFloat(document.getElementById('amount-to').value);
+
+                    if (isNaN(amountFrom) || isNaN(amountTo) || amountFrom <= 0 || amountTo <= 0) {
+                        alert("Please enter a valid amount to swap.");
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch('swap-api.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                fromSymbol,
+                                toSymbol,
+                                amountFrom,
+                                amountTo,
+                            }),
+                        });
+
+                        const data = await response.json();
+                        if (data.status === 'success') {
+                            alert('Swap completed successfully!');
+                        } else {
+                            alert(data.message || 'Swap failed.');
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        alert('Error processing the swap. Please try again.');
+                    }
+                });
+
             </script>
+
         </section>
     
         <div class="overlay"></div>

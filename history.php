@@ -36,6 +36,8 @@
             
             include 'session_handler.php';
 
+            include 'history_logic.php';
+
         ?>
 
 
@@ -121,7 +123,7 @@
                                   </a>
                               </li>
                               <li>
-                                  <a href="#">
+                                  <a href="wallet_page.php">
                                       <i class="material-icons">account_balance_wallet</i>
                                       <span>Wallet</span>
                                   </a>
@@ -247,55 +249,12 @@
 
 
                     <!-- the user's transaction here (to be inserted dynamically by the backend) -->
-
-                    <div class="transaction-card">
-                        <div class="transaction-header">
-                            <a href="#" class="hash">bf8533056f9b97</a>
-                            <div class="amount">0.0104 BTC</div>
-                        </div>
-                        <div class="transaction-details">
-                            <div class="detail-row">
-                                <span class="label">Date:</span>
-                                <span class="value">2024-11-30</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="label">Preference:</span>
-                                <span class="value">High</span>
-                            </div>
-                            <div class="status-row">
-                                <div>
-
-
-                                    <!-- [EITHER SUCCESSFULL, PENDINDG OR DECLINED FOR BACKEND (PHP IF STATEMENT, IF SUCCESSFULL || PENDING || DECLINED)] -->
-
-                                    <span class="status-badge" style="background: #eab20817; color: var(--pending-color);">Pending</span>
-                                    <!-- <span class="status-badge" style="background: rgba(34, 197, 94, 0.1); color: var(--positive-color);">Successful</span> -->
-                                    <!-- <span class="status-badge" style="background: #ea080817; color: var(--negative-color);">Declined</span> -->
-    
-
-                                    <br>
-
-                                    <!-- [EITHER DEBIT OR CREDIT FOR BACKEND (PHP IF STATEMENT, IF CREDIT || DEBIT)] -->
-                                     
-                                    <span class="type-badge credit" style="background-color: rgba(34, 197, 94, 0.1);color: var(--positive-color); ">Credit</span>
-                                    <!-- <span class="type-badge credit" style="background: #ea080817;color: var(--negative-color); ">Debit</span> -->
-                                </div>
-
-
-                                <!--  (backend to view transaction details here) -->
-                                <div class="transaction-dropdown">
-                                    <button class="dropdown-button"><i class="fa fa-sort-down"></i></button>
-                                    <div class="transaction-dropdown-menu">
-                                        <button type="submit" class="dropdown-item">View</button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <?php displayHistory()?>
+                   
 
 
                 </div>
+                <br><br><br>
             </div>
 
          </main>

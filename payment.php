@@ -1,5 +1,7 @@
 
 <?php
+
+session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedCryptoData = isset($_POST['selectedCryptoData']) ? $_POST['selectedCryptoData'] : null;
 
@@ -274,24 +276,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                             <!-- PAYMENT BUTTON FOR BACKEND  -->
-                            <button class="action-btn paid-btn">
+                            <button class="action-btn paid-btn" id="paidButton">
                                 <i class="fa fa-check"></i>
                                 <span>Paid</span>
                             </button>
 
-
-
+                            
+                            
                             <!-- GO BACK TO THE PREVIOUS PAGE -->
                             <button class="action-btn back-btn" id="backButton">
                                 <i class="fa fa-backward"></i>
                                 <span>Back</span>
                             </button>
                             <script>
-                                document.getElementById("backButton").onclick = function(event) {
-                                    event.preventDefault(); 
-                                    window.history.back(); 
-                                };
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    // Back button functionality
+                                    document.getElementById("backButton").onclick = function (event) {
+                                        event.preventDefault();
+                                        window.history.back();
+                                    };
+
+                                    // Paid button functionality
+                                    document.getElementById("paidButton").addEventListener("click", function () {
+                                        const transactionId = "<?= uniqid('txn_') ?>"; // Generating the unique transaction ID
+                                        const cryptoSymbol = "<?= $crypto['symbol'] ?>";
+                                        const amount = "<?= $crypto['amount'] ?>";
+                                        const qrCode = "<?= $crypto['qrCode'] ?>";
+                                        const walletAddress = "<?= $crypto['wallet'] ?>";
+                                        const userId = "<?= $_SESSION['user_id'] ?>"; // Fetching the user ID from the session
+                                        console.log("Sending data to the server...");
+
+
+                                        // Send the data to the server (process_payment.php)
+                                        fetch("payment_logic.php", {
+                                            method: "POST",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                            transactionId: transactionId,
+                                            cryptoSymbol: cryptoSymbol,
+                                            amount: amount,
+                                            walletAddress: walletAddress,
+                                            qrCode: qrCode,
+                                            userId: userId, // Including the user ID
+                                        }),
+                                        })
+                                            .then((response) => response.json())
+                                            .then((data) => {
+                                                if (data.success) {
+                                                    alert("Deposit is pending, waiting for admin approval.");
+                                                    window.location.href = "deposit.php"; // Redirect to deposit page
+                                                } else {
+                                                    alert("Error: " + (data.error || "There was an error processing your payment."));
+                                                
+                                                }
+                                            })
+                                            .catch((error) => {
+                                                console.error("Error:", error);
+                                                alert("An error occurred. Please try again later.");
+                                            });
+                                    });
+                                });
                             </script>
+
                         </div>
                     </div>
                 </div>

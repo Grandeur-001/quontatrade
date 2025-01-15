@@ -36,8 +36,9 @@
     }
     
     .dashboard_footer{
-        margin-left: 0;
+        padding-left: 0;
         font-size: 14px;
+        padding-right: 10px;
         margin-bottom: 80px;
         
     }
@@ -72,6 +73,10 @@
 
 }
 @media only screen and (max-width: 470px) {
+    .dashboard_footer{
+        font-size: 11px;
+    }
+
     
     .confirm_decline .bg_overlay .popup_box{
     }

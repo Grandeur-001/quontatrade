@@ -89,7 +89,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="wallet_page.php">
                                         <i class="material-icons">account_balance_wallet</i>
                                         <span>Wallet</span>
                                     </a>
@@ -137,12 +137,7 @@
 
         
     </header>
-
-
-
-    
-        
-            
+         
     <aside class="sidebar">
         <div class="wrapper">
 
@@ -162,7 +157,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="history.php">
                             <i class="material-icons">history</i>
                             <span>History</span>
                         </a>
@@ -198,10 +193,7 @@
             </div>
         </div>
     </aside>
-
-
-
-    <main class="main_content">
+ <main class="main_content">
       <div class="app-container">
         <main class="main-content">
             <div class="amount-section">
@@ -291,7 +283,7 @@
             <form id="cryptoForm" action="payment.php" method="POST">
                 <input type="hidden" id="selectedCryptoData" name="selectedCryptoData">
                 <div id="error" class="error_message">Error Message !!!</div>
-                <button type="" class="deposit-button" id="depositButton">
+                <button type="" class="deposit-button" id="depositButton" style="margin-bottom: 140px;">
                     <i class="fas fa-arrow-right"></i>
                     <span>Continue to Deposit</span>
                 </button>
@@ -339,7 +331,7 @@
 
             <ul>
                 <li>
-                    <a href="dashboard.php">
+                    <a href="history.php">
                         <i class="material-icons">history</i>
                         <span>History</span>
                     </a>
@@ -368,99 +360,112 @@
 
     <script src="assets/user/javascript/popup.js"></script>
     <script>
-        const cryptoOptions = document.querySelectorAll('.crypto-option');
-        const selectedCrypto = document.getElementById('selectedCrypto');
-        const selectedCryptoDataInput = document.getElementById('selectedCryptoData');
-        const amountInput = document.getElementById('amount');
-        const walletInput = document.getElementById('wallet');
-        const copyButton = document.getElementById('copyButton');
-        let currentSelection = null;
+    const cryptoOptions = document.querySelectorAll('.crypto-option');
+    const selectedCrypto = document.getElementById('selectedCrypto');
+    const selectedCryptoDataInput = document.getElementById('selectedCryptoData');
+    const amountInput = document.getElementById('amount');
+    const walletInput = document.getElementById('wallet');
+    const copyButton = document.getElementById('copyButton');
+    let currentSelection = null;
 
-        cryptoOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                // Remove previous selection
-                if (currentSelection) {
-                    currentSelection.classList.remove('selected');
-                }
-
-                option.classList.add('selected');
-                currentSelection = option;
-
-                const qrCode = option.dataset.qrCode;
-                const name = option.dataset.name;
-                const symbol = option.dataset.symbol;
-                const imageUrl = option.dataset.imageUrl;
-                const amount = amountInput.value;
-                const wallet = option.dataset.wallet; 
-
-                selectedCrypto.innerHTML = `
-                    <img src="${imageUrl}" alt="${name}">
-                    <div>
-                        <span class="selected-name">${name}</span>
-                        <span class="selected-ticker">${symbol}</span>
-                    </div>
-                `;
-                selectedCrypto.classList.add('has-selection');
-
-                walletInput.value = wallet;
-
-                if (wallet) {
-                    copyButton.style.display = 'inline-block';
-                } else {
-                    copyButton.style.display = 'none';
-                }
-
-                selectedCryptoDataInput.value = JSON.stringify({
-                    id: option.dataset.id,
-                    symbol: symbol,
-                    name: name,
-                    imageUrl: imageUrl,
-                    qrCode: qrCode,
-                    amount: amount,
-                    wallet: wallet
-                });
-
-            });
-        });
-
-        function copyToClipboard() {
-            const wallet = walletInput.value;
-            const copyMessage = document.getElementById("copy");
-            navigator.clipboard.writeText(wallet).then(() => {
-                copyMessage.innerHTML = "Copied to clipboard!";
-                copyMessage.style.display = "block";
-                
-                setTimeout(() => {
-                    copyMessage.style.display = "none";
-                }, 2000);
-            }).catch(err => {
-                window.alert('Failed to copy to clipboard: ' + err);
-            });
-        }
-        
-        const cryptoForm = document.getElementById("cryptoForm");
-        const walletAddress = document.getElementById("wallet");
-
-        cryptoForm.addEventListener("submit", function(event){
-            const errorMessage = document.getElementById("error");
-
-            if(walletAddress.value === ""){
-                event.preventDefault();
-                errorMessage.innerHTML = "No Currency Selected!";
-                errorMessage.style.display = "block";
-                setTimeout(() => {
-                    errorMessage.style.display = "none";
-                }, 2000);
-
+    cryptoOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            if (currentSelection) {
+                currentSelection.classList.remove('selected');
             }
 
+            option.classList.add('selected');
+            currentSelection = option;
+
+            const qrCode = option.dataset.qrCode;
+            const name = option.dataset.name;
+            const symbol = option.dataset.symbol;
+            const imageUrl = option.dataset.imageUrl;
+            const wallet = option.dataset.wallet;
+
+            selectedCrypto.innerHTML = `
+                <img src="${imageUrl}" alt="${name}">
+                <div>
+                    <span class="selected-name">${name}</span>
+                    <span class="selected-ticker">${symbol}</span>
+                </div>
+            `;
+            selectedCrypto.classList.add('has-selection');
+
+            walletInput.value = wallet;
+
+            if (wallet) {
+                copyButton.style.display = 'inline-block';
+            } else {
+                copyButton.style.display = 'none';
+            }
+
+            selectedCryptoDataInput.value = JSON.stringify({
+                id: option.dataset.id,
+                symbol: symbol,
+                name: name,
+                imageUrl: imageUrl,
+                qrCode: qrCode,
+                amount: amountInput.value, // Update the amount based on the input
+                wallet: wallet
+            });
+
         });
-        
+    });
 
+    // Event listener for amount input change to update the data object
+    amountInput.addEventListener('input', () => {
+        if (currentSelection) {
+            const option = currentSelection;
+            const amount = amountInput.value;
 
+            selectedCryptoDataInput.value = JSON.stringify({
+                id: option.dataset.id,
+                symbol: option.dataset.symbol,
+                name: option.dataset.name,
+                imageUrl: option.dataset.imageUrl,
+                qrCode: option.dataset.qrCode,
+                amount: amount, // Update the amount dynamically when typed
+                wallet: walletInput.value
+            });
+        }
+    });
 
-        
-    </script>
+    // Function to handle copy to clipboard
+    function copyToClipboard() {
+        const wallet = walletInput.value;
+        const copyMessage = document.getElementById("copy");
+
+        navigator.clipboard.writeText(wallet).then(() => {
+            copyMessage.innerHTML = "Copied to clipboard!";
+            copyMessage.style.display = "block";
+
+            setTimeout(() => {
+                copyMessage.style.display = "none";
+            }, 2000);
+        }).catch(err => {
+            window.alert('Failed to copy to clipboard: ' + err);
+        });
+    }
+
+    const cryptoForm = document.getElementById("cryptoForm");
+    const walletAddress = document.getElementById("wallet");
+
+    cryptoForm.addEventListener("submit", function(event){
+        const errorMessage = document.getElementById("error");
+
+        if(walletAddress.value === ""){
+            event.preventDefault();
+            errorMessage.innerHTML = "No Currency Selected!";
+            errorMessage.style.display = "block";
+            setTimeout(() => {
+                errorMessage.style.display = "none";
+            }, 2000);
+        }
+
+    });
+</script>
+
     <script src="assets/javascript/active-tab.js"></script>
 
 

@@ -13,20 +13,6 @@ $user_lname = $_SESSION['user_lastname'] ;
 $email = $_SESSION['user_email'] ;
 
 
-if (!isset($_SESSION['notifications'])) {
-  $_SESSION['notifications'] = [];
-}
-
-function addLoginNotification($userName) {
-  $message = "Login successful for user: " . htmlspecialchars($userName);
-  $_SESSION['notifications'][] = $message;
-}
-
-addLoginNotification($user_lname);  
-
-// Display notifications
-?>
-
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +29,7 @@ addLoginNotification($user_lname);
   
       <!-- ============CSS-LINKS============= -->
       <link rel="stylesheet" href="assets/css/main.css">
+      <link rel="stylesheet" href="assets/css/swap.css">
       <link rel="stylesheet" href="assets/css/style.css">
       <link rel="stylesheet" href="assets/css/table-wallet.css">
       <link rel="stylesheet" href="assets/css/mediaquery.css">
@@ -134,7 +121,7 @@ addLoginNotification($user_lname);
                                   </a>
                               </li>
                               <li>
-                                  <a href="#">
+                                  <a href="wallet_page.php">
                                       <i class="material-icons">account_balance_wallet</i>
                                       <span>Wallet</span>
                                   </a>
@@ -162,7 +149,7 @@ addLoginNotification($user_lname);
           <div style="height:62px; background-color: #1e293b; overflow:hidden; box-sizing: border-box; border: 1px solid #282E3B; border-radius: 4px; text-align: right; line-height:14px; block-size:62px; font-size: 12px; font-feature-settings: normal; text-size-adjust: 100%; box-shadow: inset 0 -20px 0 0 #262B38;padding:1px;padding: 0px; margin: 0px; width: 100%;">
               <div style="height:40px; padding:0px; margin:0px; width: 100%;">
                   <iframe src="https://widget.coinlib.io/widget?type=horizontal_v2&amp;theme=dark&amp;pref_coin_id=1505&amp;invert_hover=no" width="100%" height="36px" scrolling="auto" marginwidth="0" marginheight="0" frameborder="0" border="0" style="border:0;margin:0;padding:0;"></iframe>
-                  <script>
+                  <!-- <script>
                       document.addEventListener('contextmenu', (event) => event.preventDefault());
                           document.onkeydown = function(e) {
                               // Disable F12, Ctrl+Shift+I (Inspector), Ctrl+Shift+J (Console), Ctrl+U (View Source)
@@ -173,7 +160,7 @@ addLoginNotification($user_lname);
                                   return false; // Prevent the event
                               }
                           };
-                  </script>
+                  </script> -->
               </div>
               <div style="color: #1e293b; line-height: 14px; font-weight: 400; font-size: 11px; box-sizing: border-box; padding: 2px 6px; width: 100%; font-family: Verdana, Tahoma, Arial, sans-serif;">
                   <a href="https://coinlib.io" target="_blank" style="font-weight: 500; color: #626B7F; text-decoration:none; font-size:11px"></a>
@@ -181,12 +168,13 @@ addLoginNotification($user_lname);
           </div>
         </div>
       </header>
+             
+      <?php
 
+            include 'dashboard_logic.php'
+                          
+      ?>              
 
-
-    
-        
-            
       <aside class="sidebar">
           <div class="wrapper">
 
@@ -251,39 +239,72 @@ addLoginNotification($user_lname);
                   <div class="users_balance_section">
                       <div>
                           <span>Wallet <i class="material-icons">keyboard_arrow_down</i></span>
-                          <span id="amount" class="user-balance scramble-text">$34,000.00</span>
+                          <span id="amount" >$<?php echo number_format($balance, 2); ?></span>
 
                           <script>
-                            function scrambleText(element, originalText, steps, interval) {
-                              const characters = '0123456789$,.'; // Characters used for scrambling
-                              let scrambled = originalText.split('');
-                              
-                              let step = 0;
-                              const scrambleInterval = setInterval(() => {
-                                step++;
-                                scrambled = scrambled.map((char, i) => 
-                                  Math.random() < 0.5 && step < steps ? characters.charAt(Math.floor(Math.random() * characters.length)) : originalText[i]
-                                );
-                                element.textContent = scrambled.join('');
-                        
-                                if (step >= steps) {
-                                  clearInterval(scrambleInterval);
-                                  element.textContent = originalText; // Restore original text
-                                }
-                              }, interval);
-                            }
-                        
-                            const span = document.querySelector('#amount');
-                            const originalText = '$34,000.00';
-                        
-                            // Run the animation once on page load
-                            scrambleText(span, originalText, 15, 100); // 15 steps, 100ms per step
-                        
-                            // Call the scrambleText function every 4 seconds after the initial run
-                            setInterval(() => {
-                              scrambleText(span, originalText, 15, 100);
-                            }, 4000); // 4 seconds interval
-                          </script>
+    /**
+     * Scrambles the text of an element to create an animated effect.
+     * @param {HTMLElement} element - The DOM element to apply the effect on.
+     * @param {string} originalText - The original text to restore after scrambling.
+     * @param {number} steps - Number of scrambling steps.
+     * @param {number} interval - Time interval (ms) between each scrambling step.
+     */
+    function scrambleText(element, originalText, steps, interval) {
+        const characters = '0123456789$,.';
+        let scrambled = originalText.split('');
+        let step = 0;
+
+        // const scrambleInterval = setInterval(() => {
+        //     step++;
+        //     scrambled = scrambled.map((char, i) =>
+        //         Math.random() < 0.5 && step < steps
+        //             ? characters.charAt(Math.floor(Math.random() * characters.length))
+        //             : originalText[i]
+        //     );
+
+        //     element.textContent = scrambled.join('');
+
+        //     // Stop scrambling and restore original text after the defined steps
+        //     if (step >= steps) {
+        //         clearInterval(scrambleInterval);
+        //         element.textContent = originalText;
+        //     }
+        // }, interval);
+    }
+
+    // Get the target element and original text
+    const span = document.querySelector('#amount');
+    const originalBalance = '$<?php echo number_format($balance, 2); ?>';
+
+    /**
+     * Checks the network status and updates the balance.
+     */
+    function updateBalanceBasedOnNetwork() {
+        if (!navigator.onLine) {
+            // Set balance to $0.00 if offline
+            span.textContent = '$0.00';
+        } else {
+            // Restore the original balance when online
+            scrambleText(span, originalBalance, 15, 100);
+        }
+    }
+
+    // Initial scramble animation
+    scrambleText(span, originalBalance, 15, 100);
+
+    // Re-scramble every 4 seconds
+    setInterval(() => {
+        updateBalanceBasedOnNetwork();
+    }, 4000);
+
+    // Listen for online/offline events to dynamically update balance
+    window.addEventListener('online', updateBalanceBasedOnNetwork);
+    window.addEventListener('offline', updateBalanceBasedOnNetwork);
+
+    // Run the initial network check
+    updateBalanceBasedOnNetwork();
+</script>
+
                         </body>
                       </div>
                   </div>
@@ -291,7 +312,7 @@ addLoginNotification($user_lname);
                   <div class="action_cards">
                       <div class="wrapper">
                           <div class="card">
-                              <a href="dashboard.php">
+                              <a href="send.php">
                                   <span><i class="material-icons">arrow_upward</i></span>
                                   <span>Send</span>
                               </a>
@@ -303,7 +324,7 @@ addLoginNotification($user_lname);
                               </a>
                           </div>
                           <div class="card">
-                              <a href="#">
+                              <a href="">
                                   <span><i class="material-icons">sell</i></span>
                                   <span>Sell</span>
                               </a>
@@ -315,7 +336,7 @@ addLoginNotification($user_lname);
                               </a>
                           </div>
                           <div class="card">
-                              <a href="#">
+                              <a href="history.php">
                                   <span><i class="material-icons">history</i></span>
                                   <span>History</span>
                               </a>
@@ -327,7 +348,7 @@ addLoginNotification($user_lname);
                     <div class="wrapper">
                       <ul>
                           <li>
-                              <a href="dashboard.php">
+                              <a href="send.php">
                                 <span><i class="material-icons">arrow_upward</i></span>
                                 <span>Send</span>
                               </a>
@@ -336,7 +357,7 @@ addLoginNotification($user_lname);
           
                       <ul>
                           <li>
-                              <a href="dashboard.php">
+                              <a href="deposit.php">
                                 <span><i class="material-icons">arrow_downward</i></span>
                                 <span>Deposit</span>
                               </a>
@@ -345,7 +366,7 @@ addLoginNotification($user_lname);
           
                       <ul>
                           <li>
-                              <a href="dashboard.php">
+                              <a href="sell.php">
                                 <span><i class="material-icons">sell</i></span>
                                 <span>Sell</span>
                               </a>
@@ -363,7 +384,7 @@ addLoginNotification($user_lname);
           
                       <ul>
                           <li>
-                              <a href="dashboard.php">
+                              <a href="history.php">
                                   <i class="material-icons">history</i>
                                   <span>History</span>
                               </a>
@@ -374,14 +395,12 @@ addLoginNotification($user_lname);
 
                 </div>
               </section>
-              <br><br>
-              
-            
             <?php
                 
                 include 'wallet.php';
 
             ?>
+              
 
               
             </div>    
@@ -429,7 +448,7 @@ addLoginNotification($user_lname);
 
             <ul>
                 <li>
-                    <a href="features.php">
+                    <a href="404.php">
                         <i class="material-icons">widgets</i>
                         <span>Features</span>
                     </a>

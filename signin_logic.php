@@ -16,7 +16,6 @@ function login()
     // Get user input
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-    
 
     // Retrieve user details from the database
     $select = "SELECT * FROM users WHERE email = '$email'";
@@ -24,6 +23,13 @@ function login()
 
     if (mysqli_num_rows($sql) > 0) {
         $fetch = mysqli_fetch_assoc($sql);
+
+        // Check if user status is 'Disabled'
+        if ($fetch['status'] === 'Disabled') {
+            // If the user is disabled, show error message and prevent login
+            $GLOBALS['ERROR'] = 'Your account is disabled. Please contact support.';
+            return;
+        }
 
         $storedPassword = $fetch['password'];
         $isPasswordCorrect = false;
@@ -48,6 +54,7 @@ function login()
             $name = $fetch['lastname']; 
             $name2 = $fetch['firstname']; // Adjust field as per your database
             $email = $fetch['email'];
+            $role = $fetch['role']; // Fetch role from database
             $dob = $fetch['dob'];
             $gender = $fetch['gender'];
             $nationality = $fetch['nationality'];
@@ -59,13 +66,19 @@ function login()
             $_SESSION['user_firstname'] = $name;
             $_SESSION['user_lastname'] = $name2;
             $_SESSION['user_email'] = $email;
+            $_SESSION['user_role'] = $role; // Store role in session
             $_SESSION['user_dob'] = $dob;
             $_SESSION['user_gender'] = $gender;
             $_SESSION['user_nationality'] = $nationality;
             $_SESSION['user_state'] = $state;
             $_SESSION['user_phone'] = $phone; // Store phone in session
 
-            header('Location:dashboard.php');
+            // Redirect based on role
+            if ($role === 'admin') {
+                header('Location:admin_dashboard.php');
+            } else {
+                header('Location:dashboard.php');
+            }
             exit();
         } else {
             // Incorrect password
@@ -75,11 +88,7 @@ function login()
         // User not found
         $GLOBALS['ERROR'] = 'Invalid login details.';
     }
-
-    
 }
 
 $phone = isset($_SESSION['user_phone']) ? $_SESSION['user_phone'] : '';
-
-
 ?>

@@ -113,6 +113,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin-bottom: 60px;
 }
 
 .transaction-card {
@@ -254,13 +255,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .confirm_decline .bg_overlay .popup_box{
     display: block;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
     background: var(--surface);
-    height: 250px;
-    /* width: 500px; */
     border-radius: 5px;
     transform: translateY(-90%) ;
     opacity: 0;
@@ -278,7 +278,7 @@
     color: var(--secondary-text);
     
 }
-.popup_box > .wrapper header > .wrapper{
+.popup_box > .wrapper header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -286,22 +286,34 @@
     padding-bottom: 20px;
 }
 
-.popup_box > .wrapper header > .wrapper span,
-.popup_box > .wrapper header > .wrapper i{
+.popup_box > .wrapper header  > div{
+    gap: 10px;
+    align-items: center;
+    display: flex;
+}
+.popup_box > .wrapper header  > div h3{
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    align-items: center;
+    color: var(--primary-color);
+}
+.popup_box > .wrapper header i{
     font-size: 18px;
 }
-.popup_box > .wrapper header > .wrapper i{
+.popup_box > .wrapper header i{
     cursor: pointer;
     transition: all 0.4 ease-in-out;
     background: var(--text-color);
     padding: 2px;
 
 }
-.popup_box > .wrapper header > .wrapper i:hover{
+.popup_box > .wrapper header i:hover{
     scale: 1.3;
+    cursor: pointer;
 
 }
-.popup_box > .wrapper header > .wrapper span > samp{
+.popup_box > .wrapper header span > h3{
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: var(--primary-color);
     font-weight: 600;
@@ -343,10 +355,6 @@
 .confirm_decline_buttons > .wrapper > button.decline{
     background: var(--negative-color);
 }
-
-
-
-
 
 
 .toast-container {
